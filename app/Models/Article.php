@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Article;
+use Illuminate\Support\Facades\DB;
 
 class Article extends Model
 {
-    use HasFactory;
+    public function getList() {
+        // articlesテーブルからデータを取得
+        $articles = DB::table('articles')->get();
+
+        return $articles;
+}
 }

@@ -14,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('userlogin');
 });
 
-Auth::routes();
+Route::get('/itirans','App\Http\Controllers\ItiranController@index')->name('itirans.index');
 
-Route::get('/list', [App\Http\Controllers\ArticleController::class, 'showList'])->name('list');
+Route::get('/itirans/create', 'App\Http\Controllers\ItiranController@create')->name('itiran.create');
+Route::post('/itirans/store', 'App\Http\Controllers\ItiranController@store')->name('itiran.store');
