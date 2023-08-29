@@ -21,7 +21,7 @@
             <div class="form-group">
                 <input type="text" name="syouhinmei" class="form-control" placeholder="商品名">
                 @error('syouhinmei')
-                <span style="color:red;">名前を20文字以内で入力してください。</span>
+                <span style="color:red;">商品名を入力してください。</span>
                 @enderror
             </div>
         </div>
@@ -52,22 +52,6 @@
                 <input type="text" name="zaikosuu" class="form-control" placeholder="在庫数">
                 @error('zaikosuu')
                 <span style="color:red;">在庫数を入力してください。</span>
-                @enderror
-            </div>
-        </div>
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
-                <input type="text" name="koment" class="form-control" placeholder="コメント">
-                @error('koment')
-                <span style="color:red;">コメントを入力してください。</span>
-                @enderror
-            </div>
-        </div>
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
-                <input type="text" name="syouhingazou" class="form-control" placeholder="商品画像">
-                @error('syouhingazou')
-                <span style="color:red;">商品画像を入力してください。</span>
                 @enderror
             </div>
         </div>

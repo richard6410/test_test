@@ -15,7 +15,20 @@ class ItiranController extends Controller
      */
     public function index()
     {
-        $itirans = Itiran::latest()->paginate(5);
+        //$itirans = Itiran::latest()->paginate(5);
+        $itirans = itiran::select([
+            'b.id',
+            'b.syouhinmei',
+            'b.kakaku',
+            'b.zaikosuu',
+            'r.str as maker',
+        ])
+        ->from('itirans as b')
+        ->join('makers as r', function($join) {
+            $join->on('b.maker','=', 'r.id');
+        })
+        ->orderBy('b.id','DESC')
+        ->paginate(5);
 
         return view('index',compact('itirans'))
             ->with('i',(request()->input('page',1) -1)*5);
@@ -41,25 +54,21 @@ class ItiranController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+        
         $request->validate([
-            'syouhinnmei' => 'required|max:20',
+            'syouhinmei' => 'required|max:20',
             'maker' => 'required|integer',
             'kakaku' => 'required|integer',
             'zaikosuu' => 'required|integer',
-            'koment' => 'required|max:20',
-            'syouhinngazou' => 'required|max:20',
         ]);
-        echo ('入力完了');
-        $item = new Itiran();
-        $item->syouhinnmei = $request->input('syouhinnmei');
-        $item->maker = $request->input('maker');
-        $item->kakaku = $request->input('kakaku');
-        $item->zaikosuu = $request->input('zaikosuu');
-        $item->koment = $request->input('koment');
-        $item->syouhinngazou = $request->input('syouhinngazou');
-        $item->save();
-        echo ('完了');
+        
+        $itiran = new Itiran;
+        $itiran->syouhinmei = $request->input('syouhinmei');
+        $itiran->maker = $request->input('maker');
+        $itiran->kakaku = $request->input('kakaku');
+        $itiran->zaikosuu = $request->input('zaikosuu');
+        $itiran->save();
+       
         return redirect()->route('itirans.index'); 
     } 
 

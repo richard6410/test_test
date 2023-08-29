@@ -21,3 +21,6 @@ Route::get('/itirans','App\Http\Controllers\ItiranController@index')->name('itir
 
 Route::get('/itirans/create', 'App\Http\Controllers\ItiranController@create')->name('itiran.create');
 Route::post('/itirans/store', 'App\Http\Controllers\ItiranController@store')->name('itiran.store');
+
+Route::get('/itirans/edit/{itiran}', 'App\Http\Controllers\ItiranController@edit')->name('itiran.edit');
+Route::put('/itirans/edit/{itiran}', 'App\Http\Controllers\ItiranController@update')->name('itiran.update');

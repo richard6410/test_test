@@ -15,7 +15,6 @@
 <table class="table table-bordered">
     <tr>
         <th>ID</th>
-        <th>syouhingazou</th>
         <th>syouhinmei</th>
         <th>kakaku</th>
         <th>zaikosuu</th>
@@ -24,11 +23,14 @@
     @foreach ($itirans as $itiran)
     <tr>
         <td style="text-align:right">{{$itiran->id}}</td>
-        <td>{{$itiran->syouhingazou}}</td>
         <td>{{$itiran->syouhinmei}}</td>
-        <td style="text-align:right">{{$itiran->kakaku}}</td>
+        <td style="text-align:right">{{$itiran->kakaku}}円</td>
         <td style="text-align:right">{{$itiran->zaikosuu}}</td>
         <td style="text-align:right">{{$itiran->maker}}</td>
+        <td style="text-align:center">
+            <a class="btn btn-primary" href="{{ route('itiran.edit', $itiran->id) }}">変更</a>
+
+        </td>
     </tr>
     @endforeach
 </table>
