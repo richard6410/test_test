@@ -91,7 +91,9 @@ class ItiranController extends Controller
      */
     public function edit(Itiran $itiran)
     {
-        //
+        $itirans = Itiran::all();
+        return view('edit',compact('itiran'))
+            ->with('itirans',$itirans);
     }
 
     /**
@@ -103,7 +105,20 @@ class ItiranController extends Controller
      */
     public function update(Request $request, Itiran $itiran)
     {
-        //
+        $request->validate([
+            'syouhinmei' => 'required|max:20',
+            'maker' => 'required|integer',
+            'kakaku' => 'required|integer',
+            'zaikosuu' => 'required|integer',
+        ]);
+        
+        $itiran->syouhinmei = $request->input('syouhinmei');
+        $itiran->maker = $request->input('maker');
+        $itiran->kakaku = $request->input('kakaku');
+        $itiran->zaikosuu = $request->input('zaikosuu');
+        $itiran->save();
+       
+        return redirect()->route('itirans.index')->with('success','更新しました'); 
     }
 
     /**
