@@ -11,6 +11,13 @@
     </div>
 </div>
 </div>
+<div class="col-lg-12">
+    @if ($message =Session::get('success'))
+        <div class="alert-success mt-1"><p>{{$message}}</p></div>
+    @endif
+</div>
+</div>
+
 
 <table class="table table-bordered">
     <tr>
@@ -19,17 +26,26 @@
         <th>kakaku</th>
         <th>zaikosuu</th>
         <th>maker</th>
+        <th></th>
+        <th></th>
+
     </tr>
     @foreach ($itirans as $itiran)
     <tr>
         <td style="text-align:right">{{$itiran->id}}</td>
-        <td>{{$itiran->syouhinmei}}</td>
+        <td><a class="" href="{{ route('itiran.show' , $itiran->id) }}">{{$itiran -> syouhinmei}}</a></td>
         <td style="text-align:right">{{$itiran->kakaku}}円</td>
         <td style="text-align:right">{{$itiran->zaikosuu}}</td>
         <td style="text-align:right">{{$itiran->maker}}</td>
         <td style="text-align:center">
             <a class="btn btn-primary" href="{{ route('itiran.edit', $itiran->id) }}">変更</a>
-
+        </td>
+        <td style="text-align:center">
+            <form action ="{{ route('itiran.destroy',$itiran -> id )}}"merhod="POST"
+                @csrf
+                @method('DELETE')
+            <button type="submit" class="btn btn-sm btn-danger" onclick = 'return confirm("削除しますか？");'>削除</button>
+            </form>
         </td>
     </tr>
     @endforeach

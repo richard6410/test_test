@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2 style="font-size:1rem;">商品新規登録画面</h2>
+            <h2 style="font-size:1rem;">商品変更画面</h2>
         </div>
         <div class="pull-right">
             <a class="btn btn-success" href="{{ url('/itirans') }}">戻る</a>
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">
-            <button type="submit" class="btn btn-primary w-100">登録</button>
+            <button type="submit" class="btn btn-primary w-100">変更</button>
             </div>
         </div>
 </form>

@@ -69,7 +69,7 @@ class ItiranController extends Controller
         $itiran->zaikosuu = $request->input('zaikosuu');
         $itiran->save();
        
-        return redirect()->route('itirans.index'); 
+        return redirect()->route('itirans.index')->with('success','登録しました');
     } 
 
     /**
@@ -80,7 +80,8 @@ class ItiranController extends Controller
      */
     public function show(Itiran $itiran)
     {
-        //
+        $makers = Itiran::all();
+        return view('show',compact('itiran','makers'));
     }
 
     /**
@@ -91,9 +92,8 @@ class ItiranController extends Controller
      */
     public function edit(Itiran $itiran)
     {
-        $itirans = Itiran::all();
-        return view('edit',compact('itiran'))
-            ->with('itirans',$itirans);
+        $makers = Itiran::all();
+        return view('edit',compact('itiran','makers'));
     }
 
     /**
@@ -118,7 +118,7 @@ class ItiranController extends Controller
         $itiran->zaikosuu = $request->input('zaikosuu');
         $itiran->save();
        
-        return redirect()->route('itirans.index')->with('success','更新しました'); 
+        return redirect()->route('itirans.index')->with('success','変更しました'); 
     }
 
     /**
@@ -129,6 +129,8 @@ class ItiranController extends Controller
      */
     public function destroy(Itiran $itiran)
     {
-        //
+        $itiran->delete();
+        return redirect()->route('itirans.index')
+            ->with('success','商品'.$itiran->showhinmei.'を削除しました');
     }
 }

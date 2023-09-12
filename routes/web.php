@@ -24,3 +24,7 @@ Route::post('/itirans/store', 'App\Http\Controllers\ItiranController@store')->na
 
 Route::get('/itirans/edit/{itiran}', 'App\Http\Controllers\ItiranController@edit')->name('itiran.edit');
 Route::put('/itirans/edit/{itiran}', 'App\Http\Controllers\ItiranController@update')->name('itiran.update');
+
+Route::get('/itirans/show/{itiran}', 'App\Http\Controllers\ItiranController@show')->name('itiran.show');
+
+Route::delete('/itirans/show/{itiran}', 'App\Http\Controllers\ItiranController@destroy')->name('itiran.destroy');
