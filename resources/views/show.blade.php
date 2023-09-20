@@ -7,7 +7,7 @@
             <h2 style="font-size:1rem;">商品詳細画面</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ url('/itirans') }}">戻る</a>
+            <a class="btn btn-success" href="{{ url('/itirans') }}?page={{ $page_id }}">戻る</a>
         </div>
     </div>
 </div>

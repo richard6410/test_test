@@ -27,4 +27,6 @@ Route::put('/itirans/edit/{itiran}', 'App\Http\Controllers\ItiranController@upda
 
 Route::get('/itirans/show/{itiran}', 'App\Http\Controllers\ItiranController@show')->name('itiran.show');
 
-Route::delete('/itirans/show/{itiran}', 'App\Http\Controllers\ItiranController@destroy')->name('itiran.destroy');
+Route::delete('/itirans/destroy/{itiran}', 'App\Http\Controllers\ItiranController@destroy')->name('itiran.destroy');
+
+Route::get('/itiran/search', 'ItiranController@search')->name('itiran.search');

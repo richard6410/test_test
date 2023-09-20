@@ -29,9 +29,9 @@
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
                 <select name="maker" class="form-select">    
-                <option>メーカー名</option>
+                <option value="0">メーカー名</option>
                     @foreach($makers as $maker)
-                        <option value="{{ $maker->id }}"@if($maker->id==$itiran->maker) selected @endif>{{ $itiran->str }}</option>
+                        <option value="{{ $maker->id }}"@if($maker->id==$itiran->maker) selected @endif>{{ $maker->str }}</option>
                     @endforeach
                 </select>
                 @error('maker')

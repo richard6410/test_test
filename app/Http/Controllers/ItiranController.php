@@ -31,6 +31,7 @@ class ItiranController extends Controller
         ->paginate(5);
 
         return view('index',compact('itirans'))
+            ->with('page_id',request()->page)
             ->with('i',(request()->input('page',1) -1)*5);
     }
 
@@ -81,7 +82,10 @@ class ItiranController extends Controller
     public function show(Itiran $itiran)
     {
         $makers = Itiran::all();
-        return view('show',compact('itiran','makers'));
+        return view('show',compact('itiran','makers'))
+        ->with('page_id',request()->page_id)
+        ->with('makers',$makers);
+
     }
 
     /**
@@ -131,6 +135,39 @@ class ItiranController extends Controller
     {
         $itiran->delete();
         return redirect()->route('itirans.index')
-            ->with('success','商品'.$itiran->showhinmei.'を削除しました');
+            ->with('success','商品'.$itiran->syouhinmei.'を削除しました');
+    }
+
+    /* public function search(Request $request)
+    {
+        $syouhinmei = $request->input('syouhinmei');
+        $maker = $request->input('maker');
+    
+        $query = Itiran::query();
+    
+        if ($syouhinmei) {
+            $query->where('syouhinmei', 'like', '%' . $syouhinmei . '%');
+        }
+    
+        if ($maker) {
+            $query->where('maker', 'like', '%' . $maker . '%');
+        }
+    
+        $itirans = $query->paginate(10);
+    
+        return view('itiran.index', compact('itirans'));
+    } */
+
+    public function search(Request $request)
+    {
+    $syouhinmei = $request->input('syouhinmei');
+    $maker = $request->input('maker');
+
+    // データベースから商品を検索するクエリを構築
+
+    // 検索条件に基づいて商品データを取得
+
+    return view('itiran.index', ['itirans' => $result]);
     }
 }
+
