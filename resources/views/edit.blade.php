@@ -6,10 +6,6 @@
         <div class="pull-left">
             <h2 style="font-size:1rem;">商品変更画面</h2>
         </div>
-        <div class="pull-right">
-            <a class="btn btn-success" href="{{ url('/itirans') }}">戻る</a>
-        </div>
-    </div>
 </div>
 
 <div style="text-align:right;">
@@ -57,7 +53,8 @@
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">
-            <button type="submit" class="btn btn-primary w-100">変更</button>
+            <button type="submit" class="btn btn-primary">変更</button>
+            <a class="btn btn-success" href="{{ route('itiran.show', $itiran->id) }}?page_id={{$page_id}}">戻る</a>
             </div>
         </div>
 </form>

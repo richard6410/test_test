@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('makers', function (Blueprint $table) {
-            $table->id();
-            $table->string('str');
-            $table->timestamps();
+        Schema::table('table', function (Blueprint $table) {
+            //
         });
     }
 
@@ -27,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('makers');
+        Schema::table('table', function (Blueprint $table) {
+            //
+        });
     }
 };

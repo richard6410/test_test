@@ -6,13 +6,10 @@
         <div class="pull-left">
             <h2 style="font-size:1rem;">商品詳細画面</h2>
         </div>
-        <div class="pull-right">
-            <a class="btn btn-success" href="{{ url('/itirans') }}?page={{ $page_id }}">戻る</a>
-        </div>
     </div>
 </div>
 
-<div style="text-align:right;">
+<div style="text-align:left;">
 <form action="{{ route('itiran.update',$itiran->id) }}" method="POST">
     @method('PUT')
     @csrf
@@ -42,6 +39,10 @@
             </div>
         </div>
             </div>
+        </div>
+        <div class="col-12 mb-2 mt-2 text-right">
+            <a class="btn btn-primary ml-2" href="{{ route('itiran.edit', $itiran->id) }}?page_id={{$page_id}}">変更</a>
+            <a class="btn btn-success" href="{{ url('/itirans') }}?page={{ $page_id }}">戻る</a>
         </div>
 </form>
 </div>

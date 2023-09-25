@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('itirans', function (Blueprint $table) {
             $table->id();
-            $table->string('syouhingazou');
+            $table->string('image')->nullable();
             $table->string('syouhinmei');
             $table->integer('kakaku');
             $table->integer('zaikosuu');

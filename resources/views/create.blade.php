@@ -6,14 +6,11 @@
         <div class="pull-left">
             <h2 style="font-size:1rem;">商品新規登録画面</h2>
         </div>
-        <div class="pull-right">
-            <a class="btn btn-success" href="{{ url('/itirans') }}">戻る</a>
-        </div>
     </div>
 </div>
 
 <div style="text-align:right;">
-<form action="{{ route('itiran.store') }}" method="POST">
+<form action="{{ route('itiran.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div class="row">
@@ -23,6 +20,14 @@
                 @error('syouhinmei')
                 <span style="color:red;">商品名を入力してください。</span>
                 @enderror
+            </div>
+        </div>
+        <div class="col-12 mb-2 mt-2">
+            <div class="form-group">
+                <input type="file" name="image" class="form-control" placeholder="商品画像">
+                <!-- @error('syouhinmei')
+                <span style="color:red;">商品名を入力してください。</span>
+                @enderror -->
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">
@@ -56,9 +61,19 @@
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">
-            <button type="submit" class="btn btn-primary w-100">登録</button>
-            </div>
+            <button type="submit" class="btn btn-primary">登録</button>
+            <a class="btn btn-success" href="{{ url('/itirans') }}?page={{ $page_id }}">戻る</a>
         </div>
+        </div>
+    </div>
 </form>
 </div>
+
+<script>
+document.getElementById('registrationButton').addEventListener('click', function(e) {
+    e.preventDefault(); // ページ遷移を防ぐ
+    document.getElementById('registrationForm').submit(); // フォームをサブミット
+});
+</script>
+
 @endsection

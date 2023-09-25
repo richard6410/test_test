@@ -44,6 +44,7 @@ class ItiranController extends Controller
     {
         $makers = Maker::all();
         return view('create')
+            ->with('page_id',request()->page_id)
             ->with('makers',$makers);
     }
 
@@ -55,7 +56,6 @@ class ItiranController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
             'syouhinmei' => 'required|max:20',
             'maker' => 'required|integer',
@@ -64,13 +64,21 @@ class ItiranController extends Controller
         ]);
         
         $itiran = new Itiran;
+        
+        if(request('image')){
+            $name=request()->file('image')->getClientOriginalName();
+            $file=request()->file('image')->move('storage/images',$name);
+            $itiran->image=$name;
+        }
         $itiran->syouhinmei = $request->input('syouhinmei');
         $itiran->maker = $request->input('maker');
         $itiran->kakaku = $request->input('kakaku');
         $itiran->zaikosuu = $request->input('zaikosuu');
         $itiran->save();
        
-        return redirect()->route('itirans.index')->with('success','登録しました');
+
+
+        return redirect()->route('itiran.create')->with('success','登録しました');
     } 
 
     /**
@@ -96,8 +104,9 @@ class ItiranController extends Controller
      */
     public function edit(Itiran $itiran)
     {
-        $makers = Itiran::all();
-        return view('edit',compact('itiran','makers'));
+        $makers = maker::all();
+        return view('edit',compact('itiran','makers'))
+        ->with('page_id',request()->page_id);
     }
 
     /**
@@ -138,7 +147,7 @@ class ItiranController extends Controller
             ->with('success','商品'.$itiran->syouhinmei.'を削除しました');
     }
 
-    /* public function search(Request $request)
+    public function search(Request $request)
     {
         $syouhinmei = $request->input('syouhinmei');
         $maker = $request->input('maker');
@@ -152,13 +161,12 @@ class ItiranController extends Controller
         if ($maker) {
             $query->where('maker', 'like', '%' . $maker . '%');
         }
-    
         $itirans = $query->paginate(10);
-    
-        return view('itiran.index', compact('itirans'));
-    } */
 
-    public function search(Request $request)
+        return view('itirans.index', compact('itirans'));
+    } 
+
+   /*  public function search(Request $request)
     {
     $syouhinmei = $request->input('syouhinmei');
     $maker = $request->input('maker');
@@ -168,6 +176,6 @@ class ItiranController extends Controller
     // 検索条件に基づいて商品データを取得
 
     return view('itiran.index', ['itirans' => $result]);
-    }
+    } */
 }
 

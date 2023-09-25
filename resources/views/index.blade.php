@@ -1,7 +1,6 @@
 @extends('app')
 
 @section('content')
-<form action="{{ route('itiran.search') }}" method="GET" class="mb-3">
     <div class="row">
         <div class="col">
             <input type="text" name="syouhinmei" class="form-control" placeholder="商品名で検索">
@@ -9,9 +8,9 @@
         <div class="col">
             <select name="maker" class="form-control">
                 <option value="" selected>メーカーを選択</option>
-                <option value="メーカー1">メーカー1</option>
-                <option value="メーカー2">メーカー2</option>
-                <option value="メーカー3">メーカー3</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
                 <!-- 他のメーカーを追加 -->
             </select>
         </div>
@@ -21,7 +20,7 @@
     </div>
 </form>
     <div class="text-right">
-    <a class="btn btn-success" href="{{ route('itiran.create')}}">新規登録</a>
+    <a class="btn btn-success" href="{{ route('itiran.create')}}?page_id={{$page_id}}">新規登録</a>
     </div>
 </div>
 </div>
@@ -36,6 +35,7 @@
 <table class="table table-bordered">
     <tr>
         <th>ID</th>
+        <th>商品画像</th>
         <th>商品名</th>
         <th>価格</th>
         <th>在庫数</th>
@@ -47,12 +47,13 @@
     @foreach ($itirans as $itiran)
     <tr>
         <td style="text-align:right">{{$itiran->id}}</td>
+        <td style="text-align:right">{{$itiran->image}}</td>
         <td><a class="" href="{{ route('itiran.show' , $itiran->id) }}?page_id={{$page_id}}">{{$itiran -> syouhinmei}}</a></td>
         <td style="text-align:right">{{$itiran->kakaku}}円</td>
         <td style="text-align:right">{{$itiran->zaikosuu}}</td>
         <td style="text-align:right">{{$itiran->maker}}</td>
         <td style="text-align:center">
-            <a class="btn btn-primary" href="{{ route('itiran.edit', $itiran->id) }}">変更</a>
+            <a class="btn btn-primary" href="{{ route('itiran.show', $itiran->id) }}?page_id={{$page_id}}">詳細</a>
         </td>
         <td style="text-align:center">
             <form action ="{{ route('itiran.destroy',$itiran -> id )}}"method="POST">
@@ -65,5 +66,5 @@
     @endforeach
 </table>
 
-    {!! $itirans->links('pagination::bootstrap-5') !!}
+    {{$itirans->links('pagination::bootstrap-5')}}
 @endsection
