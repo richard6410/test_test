@@ -165,17 +165,4 @@ class ItiranController extends Controller
 
         return view('itirans.index', compact('itirans'));
     } 
-
-   /*  public function search(Request $request)
-    {
-    $syouhinmei = $request->input('syouhinmei');
-    $maker = $request->input('maker');
-
-    // データベースから商品を検索するクエリを構築
-
-    // 検索条件に基づいて商品データを取得
-
-    return view('itiran.index', ['itirans' => $result]);
-    } */
 }
-

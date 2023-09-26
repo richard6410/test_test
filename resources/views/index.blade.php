@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+<form action="{{ route('itiran.search') }}" method="GET" >
     <div class="row">
         <div class="col">
             <input type="text" name="syouhinmei" class="form-control" placeholder="商品名で検索">
