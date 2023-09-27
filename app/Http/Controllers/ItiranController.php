@@ -159,10 +159,11 @@ class ItiranController extends Controller
         }
     
         if ($maker) {
-            $query->where('maker', 'like', '%' . $maker . '%');
+            $query->where('maker', $maker );
         }
         $itirans = $query->paginate(10);
+        $page_id = $request->input('page_id');
 
-        return view('itirans.index', compact('itirans'));
+        return view('index', compact('itirans', 'page_id'));
     } 
 }
