@@ -151,7 +151,7 @@ class ItiranController extends Controller
     {
         $syouhinmei = $request->input('syouhinmei');
         $maker = $request->input('maker');
-    
+
         $query = Itiran::query();
     
         if ($syouhinmei) {
@@ -159,11 +159,14 @@ class ItiranController extends Controller
         }
     
         if ($maker) {
-            $query->where('maker', $maker );
+            $query->where('maker',$maker);
         }
         $itirans = $query->paginate(10);
         $page_id = $request->input('page_id');
 
-        return view('index', compact('itirans', 'page_id'));
+        $makers = Maker::all();
+
+        return view('index',compact('itirans','makers'))
+        ->with('page_id',request()->page_id);
     } 
 }

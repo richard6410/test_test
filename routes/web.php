@@ -37,6 +37,6 @@ Route::get('/itirans/show/{itiran}', 'App\Http\Controllers\ItiranController@show
 
 Route::delete('/itirans/destroy/{itiran}', 'App\Http\Controllers\ItiranController@destroy')->name('itiran.destroy');
 
-//Route::get('/itirans/search/{itiran}', 'App\Http\Controllers\ItiranController@search')->name('itiran.search');
+Route::get('/itirans/search/{itiran}', 'App\Http\Controllers\ItiranController@search')->name('itiran.search');
 //Route::get('/itiran/search', 'ItiranController@search')->name('itiran.search');
-Route::get('/itiran/search', 'App\Http\Controllers\ItiranController@search')->name('itiran.search');
+//Route::get('/itiran/search', 'App\Http\Controllers\ItiranController@search')->name('itiran.search');
