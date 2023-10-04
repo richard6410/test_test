@@ -66,7 +66,8 @@ class ItiranController extends Controller
         $itiran = new Itiran;
         
         if(request('image')){
-            $name=request()->file('image')->getClientOriginalName();
+            $original=request()->file('image')->getClientOriginalName();
+            $name=date('Ymd_His').'_'.$original;
             $file=request()->file('image')->move('storage/images',$name);
             $itiran->image=$name;
         }
@@ -89,7 +90,7 @@ class ItiranController extends Controller
      */
     public function show(Itiran $itiran)
     {
-        $makers = Itiran::all();
+        $makers = Maker::all();
         return view('show',compact('itiran','makers'))
         ->with('page_id',request()->page_id)
         ->with('makers',$makers);
@@ -152,21 +153,28 @@ class ItiranController extends Controller
         $syouhinmei = $request->input('syouhinmei');
         $maker = $request->input('maker');
 
-        $query = Itiran::query();
+        $query = itiran::select([
+            'i.id',
+            'i.syouhinmei',
+            'i.kakaku',
+            'i.zaikosuu',
+            'm.str as maker',
+        ])
+        ->from('itirans as i')
+        ->join('makers as m','i.maker','m.id');
     
         if ($syouhinmei) {
             $query->where('syouhinmei', 'like', '%' . $syouhinmei . '%');
         }
     
         if ($maker) {
-            $query->where('maker',$maker);
+            $query->where('m.str',$maker);
         }
         $itirans = $query->paginate(10);
         $page_id = $request->input('page_id');
 
-        $makers = Maker::all();
+        //$makers = Maker::all();
 
-        return view('index',compact('itirans','makers'))
-        ->with('page_id',request()->page_id);
+        return view('index',compact('itirans','page_id'));
     } 
 }

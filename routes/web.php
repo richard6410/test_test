@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('usersinki');
+    return view('welcome');
 });
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 /* Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register'); */
 Route::get('/itirans','App\Http\Controllers\ItiranController@userlogin')->name('itirans.userlogin');
@@ -37,6 +40,6 @@ Route::get('/itirans/show/{itiran}', 'App\Http\Controllers\ItiranController@show
 
 Route::delete('/itirans/destroy/{itiran}', 'App\Http\Controllers\ItiranController@destroy')->name('itiran.destroy');
 
-Route::get('/itirans/search/{itiran}', 'App\Http\Controllers\ItiranController@search')->name('itiran.search');
+//Route::get('/itirans/search/{itiran}', 'App\Http\Controllers\ItiranController@search')->name('itiran.search');
 //Route::get('/itiran/search', 'ItiranController@search')->name('itiran.search');
-//Route::get('/itiran/search', 'App\Http\Controllers\ItiranController@search')->name('itiran.search');
+Route::get('/itiran/search', 'App\Http\Controllers\ItiranController@search')->name('itiran.search');

@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-<form action="{{ route('itiran.search') }}" method="GET" >
+<form action="{{ route('itiran.search') }}" method="GET" class="mb-3">
     <div class="row">
         <div class="col">
             <input type="text" name="syouhinmei" class="form-control" placeholder="商品名で検索">
@@ -67,5 +67,5 @@
     @endforeach
 </table>
 
-    {{$itirans->links('pagination::bootstrap-5')}}
+    {!! $itirans->links('pagination::bootstrap-5') !!}
 @endsection

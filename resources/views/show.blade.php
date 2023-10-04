@@ -23,7 +23,7 @@
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
                     @foreach($makers as $maker)
-                        @if($maker->id==$itiran->maker) {{ $itiran->str }}@endif
+                        @if($maker->id==$itiran->maker) {{ $maker->str }}@endif
                     @endforeach
             </div>
         </div>
