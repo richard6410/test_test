@@ -57,6 +57,7 @@ class ItiranController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'syouhinmei' => 'required|max:20',
             'maker' => 'required|integer',
             'kakaku' => 'required|integer',
@@ -177,4 +178,5 @@ class ItiranController extends Controller
 
         return view('index',compact('itirans','page_id'));
     } 
+
 }

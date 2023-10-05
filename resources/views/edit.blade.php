@@ -53,10 +53,46 @@
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">
+            @if($itiran->syouhingazou)
+                <img src="{{ asset('storage/images/' . $itiran->syouhingazou) }}" alt="商品画像" class="img-thumbnail">
+            @else
+                <p>画像なし</p>
+            @endif
+        </div>
+        <div class="col-12 mb-2 mt-2">
+            <input type="file" name="syouhingazou" class="form-control" placeholder="商品画像">
+        </div>
+
+        <div class="col-12 mb-2 mt-2">
             <button type="submit" class="btn btn-primary">変更</button>
             <a class="btn btn-success" href="{{ route('itiran.show', $itiran->id) }}?page_id={{$page_id}}">戻る</a>
             </div>
         </div>
 </form>
 </div>
+<script>
+    // 画像プレビューを表示するための関数
+    function previewImage() {
+        var imageInput = document.getElementById('imageInput');
+        var imagePreview = document.getElementById('imagePreview');
+        
+        if (imageInput.files && imageInput.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                // ファイルを読み込んでプレビューを更新
+                imagePreview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            // ファイルが選択されていない場合、デフォルトのプロフィール画像を表示
+            imagePreview.src = "{{ asset('storage/images/' . $itiran->syouhingazou) }}";
+        }
+    }
+
+    // ファイル選択時に画像プレビューを表示
+    document.getElementById('imageInput').addEventListener('change', previewImage);
+</script>
+
 @endsection

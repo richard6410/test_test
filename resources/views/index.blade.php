@@ -48,7 +48,13 @@
     @foreach ($itirans as $itiran)
     <tr>
         <td style="text-align:right">{{$itiran->id}}</td>
-        <td style="text-align:right">{{$itiran->image}}</td>
+        <td>
+            @if ($itiran->image)
+            <img src="{{ asset('storage/' . $itiran->image) }}" alt="商品画像" class="img-thumbnail" width="100">
+            @else
+            画像なし
+            @endif
+        </td>
         <td><a class="" href="{{ route('itiran.show' , $itiran->id) }}?page_id={{$page_id}}">{{$itiran -> syouhinmei}}</a></td>
         <td style="text-align:right">{{$itiran->kakaku}}円</td>
         <td style="text-align:right">{{$itiran->zaikosuu}}</td>

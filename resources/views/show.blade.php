@@ -22,13 +22,6 @@
         </div>
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                    @foreach($makers as $maker)
-                        @if($maker->id==$itiran->maker) {{ $maker->str }}@endif
-                    @endforeach
-            </div>
-        </div>
-        <div class="col-12 mb-2 mt-2">
-            <div class="form-group">
             {{ $itiran->kakaku }}  
             </div>
         </div>
@@ -38,8 +31,26 @@
             {{ $itiran->zaikosuu }}  
             </div>
         </div>
+
+        <div class="col-12 mb-2 mt-2">
+            <div class="form-group">
+                    @foreach($makers as $maker)
+                        @if($maker->id==$itiran->maker) {{ $maker->str }}@endif
+                    @endforeach
             </div>
         </div>
+
+        <div class="col-12 mb-2 mt-2">
+        <div class="form-group">
+            商品画像: 
+            @if($itiran->syouhingazou)
+               <img src="{{ asset('storage/images/' . $itiran->syouhingazou) }}" alt="商品画像">
+            @else
+               画像なし
+            @endif
+        </div>
+    </div>
+        
         <div class="col-12 mb-2 mt-2 text-right">
             <a class="btn btn-primary ml-2" href="{{ route('itiran.edit', $itiran->id) }}?page_id={{$page_id}}">変更</a>
             <a class="btn btn-success" href="{{ url('/itirans') }}?page={{ $page_id }}">戻る</a>
