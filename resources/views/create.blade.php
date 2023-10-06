@@ -18,11 +18,11 @@
             <img id="icon_img_prv" class="img-thumbnail h-25 w-25 mb-3"src="{{ asset('/storage/img/profile.jpg') }}">
         </div>
             <div class="form-group">
-                <input type="file" name="syouhingazou" id="syouhingazou" class="form-control" placeholder="商品画像">
+                <input type="file" name="image" id="image" class="form-control" placeholder="商品画像">
             </div>
         </div>
         <script>
-document.getElementById('syouhingazou').addEventListener('change', function() {
+document.getElementById('image').addEventListener('change', function() {
     var imageInput = this;
     var imagePreview = document.getElementById('icon_img_prv');
     

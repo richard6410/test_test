@@ -53,14 +53,14 @@
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">
-            @if($itiran->syouhingazou)
-                <img src="{{ asset('storage/images/' . $itiran->syouhingazou) }}" alt="商品画像" class="img-thumbnail">
+            @if($itiran->image)
+                <img src="{{ asset('storage/images/' . $itiran->image) }}" alt="商品画像" class="img-thumbnail">
             @else
                 <p>画像なし</p>
             @endif
         </div>
         <div class="col-12 mb-2 mt-2">
-            <input type="file" name="syouhingazou" class="form-control" placeholder="商品画像">
+            <input type="file" name="image" class="form-control" placeholder="商品画像">
         </div>
 
         <div class="col-12 mb-2 mt-2">
@@ -87,7 +87,7 @@
             reader.readAsDataURL(imageInput.files[0]);
         } else {
             // ファイルが選択されていない場合、デフォルトのプロフィール画像を表示
-            imagePreview.src = "{{ asset('storage/images/' . $itiran->syouhingazou) }}";
+            imagePreview.src = "{{ asset('storage/images/' . $itiran->image) }}";
         }
     }
 

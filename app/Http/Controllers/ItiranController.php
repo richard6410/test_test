@@ -18,6 +18,7 @@ class ItiranController extends Controller
         //$itirans = Itiran::latest()->paginate(5);
         $itirans = itiran::select([
             'b.id',
+            'b.image',
             'b.syouhinmei',
             'b.kakaku',
             'b.zaikosuu',

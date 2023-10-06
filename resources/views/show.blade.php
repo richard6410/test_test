@@ -43,8 +43,8 @@
         <div class="col-12 mb-2 mt-2">
         <div class="form-group">
             商品画像: 
-            @if($itiran->syouhingazou)
-               <img src="{{ asset('storage/images/' . $itiran->syouhingazou) }}" alt="商品画像">
+            @if($itiran->image)
+               <img src="{{ asset('storage/images/' . $itiran->image) }}" alt="商品画像">
             @else
                画像なし
             @endif

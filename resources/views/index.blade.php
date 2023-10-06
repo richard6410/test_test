@@ -50,7 +50,7 @@
         <td style="text-align:right">{{$itiran->id}}</td>
         <td>
             @if ($itiran->image)
-            <img src="{{ asset('storage/' . $itiran->image) }}" alt="商品画像" class="img-thumbnail" width="100">
+            <img src="{{ asset('storage/images/' . $itiran->image) }}" alt="商品画像" class="img-thumbnail" width="100">
             @else
             画像なし
             @endif
