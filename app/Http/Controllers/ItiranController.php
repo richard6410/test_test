@@ -22,6 +22,7 @@ class ItiranController extends Controller
             'b.syouhinmei',
             'b.kakaku',
             'b.zaikosuu',
+            'b.comment',
             'r.str as maker',
         ])
         ->from('itirans as b')
@@ -63,20 +64,24 @@ class ItiranController extends Controller
             'maker' => 'required|integer',
             'kakaku' => 'required|integer',
             'zaikosuu' => 'required|integer',
+            'comment' => 'required|max:100',
         ]);
         
         $itiran = new Itiran;
         
-        if(request('image')){
-            $original=request()->file('image')->getClientOriginalName();
-            $name=date('Ymd_His').'_'.$original;
-            $file=request()->file('image')->move('storage/images',$name);
-            $itiran->image=$name;
+
+        if ($request->hasFile('image')) {
+            $original = $request->file('image')->getClientOriginalName();
+            $name = date('Ymd_His') . '_' . $original;
+            $file = $request->file('image')->storeAs('public/images', $name); // 画像を指定ディレクトリに保存
+            $itiran->image = $name; // ファイル名をデータベースに格納
         }
+ 
         $itiran->syouhinmei = $request->input('syouhinmei');
         $itiran->maker = $request->input('maker');
         $itiran->kakaku = $request->input('kakaku');
         $itiran->zaikosuu = $request->input('zaikosuu');
+        $itiran->comment = $request->input('comment');
         $itiran->save();
        
 
@@ -126,12 +131,14 @@ class ItiranController extends Controller
             'maker' => 'required|integer',
             'kakaku' => 'required|integer',
             'zaikosuu' => 'required|integer',
+            'comment' => 'required|max:100',
         ]);
         
         $itiran->syouhinmei = $request->input('syouhinmei');
         $itiran->maker = $request->input('maker');
         $itiran->kakaku = $request->input('kakaku');
         $itiran->zaikosuu = $request->input('zaikosuu');
+        $itiran->comment = $request->input('commment');
         $itiran->save();
        
         return redirect()->route('itirans.index')->with('success','変更しました'); 

@@ -83,6 +83,15 @@ document.getElementById('image').addEventListener('change', function() {
         </div>
 
         <div class="col-12 mb-2 mt-2">
+            <div class="form-group">
+                <input type="text" name="comment"  class="form-control" placeholder="コメント">
+                @error('comment')
+                <span style="color:red;">コメントを入力してください。</span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="col-12 mb-2 mt-2">
             <button type="submit" class="btn btn-primary">登録</button>
             <a class="btn btn-success" href="{{ url('/itirans') }}?page={{ $page_id }}">戻る</a>
         </div>

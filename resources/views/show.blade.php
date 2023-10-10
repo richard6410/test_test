@@ -14,6 +14,17 @@
     @method('PUT')
     @csrf
 
+    <div class="col-12 mb-2 mt-2">
+        <div class="form-group">
+            商品画像: 
+            @if($itiran->image)
+               <img src="{{ asset('storage/images/' . $itiran->image) }}" alt="商品画像">
+            @else
+               画像なし
+            @endif
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
@@ -39,17 +50,11 @@
                     @endforeach
             </div>
         </div>
-
         <div class="col-12 mb-2 mt-2">
-        <div class="form-group">
-            商品画像: 
-            @if($itiran->image)
-               <img src="{{ asset('storage/images/' . $itiran->image) }}" alt="商品画像">
-            @else
-               画像なし
-            @endif
+            <div class="form-group">
+            {{ $itiran->comment }}  
+            </div>
         </div>
-    </div>
         
         <div class="col-12 mb-2 mt-2 text-right">
             <a class="btn btn-primary ml-2" href="{{ route('itiran.edit', $itiran->id) }}?page_id={{$page_id}}">変更</a>
