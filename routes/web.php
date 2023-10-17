@@ -31,19 +31,19 @@ require __DIR__.'/auth.php';
 
 
 
-Route::get('/itirans','App\Http\Controllers\ItiranController@index')->name('itirans.index');
+Route::get('/products','App\Http\Controllers\ProductController@index')->name('products.index');
 
-Route::get('/itirans/create', 'App\Http\Controllers\ItiranController@create')->name('itiran.create');
-Route::post('/itirans/store', 'App\Http\Controllers\ItiranController@store')->name('itiran.store');
+Route::get('/products/create', 'App\Http\Controllers\ProductController@create')->name('product.create');
+Route::post('/products/store', 'App\Http\Controllers\ProductController@store')->name('product.store');
 
-Route::get('/itirans/edit/{itiran}', 'App\Http\Controllers\ItiranController@edit')->name('itiran.edit');
-Route::put('/itirans/edit/{itiran}', 'App\Http\Controllers\ItiranController@update')->name('itiran.update');
+Route::get('/products/edit/{product}', 'App\Http\Controllers\ProductController@edit')->name('product.edit');
+Route::put('/products/edit/{product}', 'App\Http\Controllers\ProductController@update')->name('product.update');
 
-Route::get('/itirans/show/{itiran}', 'App\Http\Controllers\ItiranController@show')->name('itiran.show');
+Route::get('/products/show/{product}', 'App\Http\Controllers\ProductController@show')->name('product.show');
 
-Route::delete('/itirans/destroy/{itiran}', 'App\Http\Controllers\ItiranController@destroy')->name('itiran.destroy');
+Route::delete('/products/destroy/{product}', 'App\Http\Controllers\ProductController@destroy')->name('product.destroy');
 
-Route::get('/itiran/search', 'App\Http\Controllers\ItiranController@search')->name('itiran.search');
+Route::get('/product/search', 'App\Http\Controllers\ProductController@search')->name('product.search');
 
 Auth::routes();
 

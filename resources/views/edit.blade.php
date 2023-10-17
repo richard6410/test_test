@@ -9,7 +9,7 @@
 </div>
 
 <div style="text-align:right;">
-<form action="{{ route('itiran.update',$itiran->id) }}" method="POST">
+<form action="{{ route('product.update',$product->id) }}" method="POST">
     @method('PUT')
     @csrf
 
@@ -17,8 +17,14 @@
 
     <div class="row">
         <div class="col-12 mb-2 mt-2">
-            @if($itiran->image)
-                <img src="{{ asset('storage/images/' . $itiran->image) }}" alt="商品画像" class="img-thumbnail">
+            <div class="form-group">
+            {{ $product->id }}  
+            </div>
+        </div>
+
+        <div class="col-12 mb-2 mt-2">
+            @if($product->image)
+                <img src="{{ asset('storage/images/' . $product->image) }}" alt="商品画像" class="img-thumbnail">
             @else
                 <p>画像なし</p>
             @endif
@@ -30,7 +36,7 @@
 
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                <input type="text" name="syouhinmei" value="{{$itiran->syouhinmei}}" class="form-control" placeholder="商品名">
+                <input type="text" name="syouhinmei" value="{{$product->syouhinmei}}" class="form-control" placeholder="商品名">
                 @error('syouhinmei')
                 <span style="color:red;">商品名を入力してください。</span>
                 @enderror
@@ -39,7 +45,7 @@
       
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                <input type="text" name="kakaku" value="{{$itiran->kakaku}}" class="form-control" placeholder="価格">
+                <input type="text" name="kakaku" value="{{$product->kakaku}}" class="form-control" placeholder="価格">
                 @error('kakaku')
                 <span style="color:red;">価格を入力してください。</span>
                 @enderror
@@ -48,7 +54,7 @@
         
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                <input type="text" name="zaikosuu" value="{{$itiran->zaikosuu}}" class="form-control" placeholder="在庫数">
+                <input type="text" name="zaikosuu" value="{{$product->zaikosuu}}" class="form-control" placeholder="在庫数">
                 @error('zaikosuu')
                 <span style="color:red;">在庫数を入力してください。</span>
                 @enderror
@@ -60,7 +66,7 @@
                 <select name="maker" class="form-select">    
                 <option value="0">メーカー名</option>
                     @foreach($makers as $maker)
-                        <option value="{{ $maker->id }}"@if($maker->id==$itiran->maker) selected @endif>{{ $maker->str }}</option>
+                        <option value="{{ $maker->id }}"@if($maker->id==$product->maker) selected @endif>{{ $maker->str }}</option>
                     @endforeach
                 </select>
                 @error('maker')
@@ -71,7 +77,7 @@
 
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                <input type="text" name="comment" value="{{$itiran->comment}}" class="form-control" placeholder="コメント">
+                <input type="text" name="comment" value="{{$product->comment}}" class="form-control" placeholder="コメント">
                 @error('comment')
                 <span style="color:red;">コメントを入力してください。</span>
                 @enderror
@@ -81,7 +87,7 @@
 
         <div class="col-12 mb-2 mt-2">
             <button type="submit" class="btn btn-primary">変更</button>
-            <a class="btn btn-success" href="{{ route('itiran.show', $itiran->id) }}?page_id={{$page_id}}">戻る</a>
+            <a class="btn btn-success" href="{{ route('product.show', $product->id) }}?page_id={{$page_id}}">戻る</a>
             </div>
         </div>
 </form>
@@ -103,7 +109,7 @@
             reader.readAsDataURL(imageInput.files[0]);
         } else {
             // ファイルが選択されていない場合、デフォルトのプロフィール画像を表示
-            imagePreview.src = "{{ asset('storage/images/' . $itiran->image) }}";
+            imagePreview.src = "{{ asset('storage/images/' . $product->image) }}";
         }
     }
 

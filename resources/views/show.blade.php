@@ -10,15 +10,21 @@
 </div>
 
 <div style="text-align:left;">
-<form action="{{ route('itiran.update',$itiran->id) }}" method="POST">
+<form action="{{ route('product.update',$product->id) }}" method="POST">
     @method('PUT')
     @csrf
 
     <div class="col-12 mb-2 mt-2">
+            <div class="form-group">
+            {{ $product->id }}  
+            </div>
+    </div>
+
+    <div class="col-12 mb-2 mt-2">
         <div class="form-group">
             商品画像: 
-            @if($itiran->image)
-               <img src="{{ asset('storage/images/' . $itiran->image) }}" alt="商品画像">
+            @if($product->image)
+               <img src="{{ asset('storage/images/' . $product->image) }}" alt="商品画像">
             @else
                画像なし
             @endif
@@ -28,37 +34,37 @@
     <div class="row">
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-            {{ $itiran->syouhinmei }}  
+            {{ $product->syouhinmei }}  
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-            {{ $itiran->kakaku }}  
+            {{ $product->kakaku }}  
             </div>
         </div>
         
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-            {{ $itiran->zaikosuu }}  
+            {{ $product->zaikosuu }}  
             </div>
         </div>
 
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
                     @foreach($makers as $maker)
-                        @if($maker->id==$itiran->maker) {{ $maker->str }}@endif
+                        @if($maker->id==$product->maker) {{ $maker->str }}@endif
                     @endforeach
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-            {{ $itiran->comment }}  
+            {{ $product->comment }}  
             </div>
         </div>
         
         <div class="col-12 mb-2 mt-2 text-right">
-            <a class="btn btn-primary ml-2" href="{{ route('itiran.edit', $itiran->id) }}?page_id={{$page_id}}">変更</a>
-            <a class="btn btn-success" href="{{ url('/itirans') }}?page={{ $page_id }}">戻る</a>
+            <a class="btn btn-primary ml-2" href="{{ route('product.edit', $product->id) }}?page_id={{$page_id}}">変更</a>
+            <a class="btn btn-success" href="{{ url('/products') }}?page={{ $page_id }}">戻る</a>
         </div>
 </form>
 </div>

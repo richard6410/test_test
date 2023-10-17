@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-<form action="{{ route('itiran.search') }}" method="GET" class="mb-3">
+<form action="{{ route('product.search') }}" method="GET" class="mb-3">
     <div class="row">
         <div class="col">
             <input type="text" name="syouhinmei" class="form-control" placeholder="商品名で検索">
@@ -21,7 +21,7 @@
     </div>
 </form>
     <div class="text-right">
-    <a class="btn btn-success" href="{{ route('itiran.create')}}?page_id={{$page_id}}">新規登録</a>
+    <a class="btn btn-success" href="{{ route('product.create')}}?page_id={{$page_id}}">新規登録</a>
     </div>
 </div>
 </div>
@@ -45,25 +45,25 @@
         <th></th>
 
     </tr>
-    @foreach ($itirans as $itiran)
+    @foreach ($products as $product)
     <tr>
-        <td style="text-align:right">{{$itiran->id}}</td>
+        <td style="text-align:right">{{$product->id}}</td>
         <td>
-            @if ($itiran->image)
-            <img src="{{ asset('storage/images/' . $itiran->image) }}" alt="商品画像" class="img-thumbnail" width="100">
+            @if ($product->image)
+            <img src="{{ asset('storage/images/' . $product->image) }}" alt="商品画像" class="img-thumbnail" width="100">
             @else
             画像なし
             @endif
         </td>
-        <td><a class="" href="{{ route('itiran.show' , $itiran->id) }}?page_id={{$page_id}}">{{$itiran -> syouhinmei}}</a></td>
-        <td style="text-align:right">{{$itiran->kakaku}}円</td>
-        <td style="text-align:right">{{$itiran->zaikosuu}}</td>
-        <td style="text-align:right">{{$itiran->maker}}</td>
+        <td><a class="" href="{{ route('product.show', $product->id) }}?page_id={{$page_id}}">{{$product->syouhinmei}}</a></td>
+        <td style="text-align:right">{{$product->kakaku}}円</td>
+        <td style="text-align:right">{{$product->zaikosuu}}</td>
+        <td style="text-align:right">{{$product->maker}}</td>
         <td style="text-align:center">
-            <a class="btn btn-primary" href="{{ route('itiran.show', $itiran->id) }}?page_id={{$page_id}}">詳細</a>
+            <a class="btn btn-primary" href="{{ route('product.show', $product->id) }}?page_id={{$page_id}}">詳細</a>
         </td>
         <td style="text-align:center">
-            <form action ="{{ route('itiran.destroy',$itiran -> id )}}"method="POST">
+            <form action ="{{ route('product.destroy',$product -> id )}}"method="POST">
                 @csrf
                 @method('DELETE')
             <button type="submit" class="btn btn-sm btn-danger" onclick = 'return confirm("削除しますか？");'>削除</button>
@@ -73,5 +73,5 @@
     @endforeach
 </table>
 
-    {!! $itirans->links('pagination::bootstrap-5') !!}
+    {!! $products->links('pagination::bootstrap-5') !!}
 @endsection

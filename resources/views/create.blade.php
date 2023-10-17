@@ -10,7 +10,7 @@
 </div>
 
 <div style="text-align:right;">
-<form action="{{ route('itiran.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div class="row">
@@ -21,26 +21,6 @@
                 <input type="file" name="image" id="image" class="form-control" placeholder="商品画像">
             </div>
         </div>
-        <script>
-document.getElementById('image').addEventListener('change', function() {
-    var imageInput = this;
-    var imagePreview = document.getElementById('icon_img_prv');
-    
-    if (imageInput.files && imageInput.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            // ファイルを読み込んでプレビューを更新
-            imagePreview.src = e.target.result;
-        };
-
-        reader.readAsDataURL(imageInput.files[0]);
-    } else {
-        // ファイルが選択されていない場合、デフォルトのプロフィール画像を表示
-        imagePreview.src = "{{ asset('/storage/img/profile.jpg') }}";
-    }
-});
-</script>
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
                 <input type="text" name="syouhinmei"  class="form-control" placeholder="商品名">
@@ -103,6 +83,25 @@ document.getElementById('image').addEventListener('change', function() {
 document.getElementById('registrationButton').addEventListener('click', function(e) {
     e.preventDefault(); // ページ遷移を防ぐ
     document.getElementById('registrationForm').submit(); // フォームをサブミット
+});
+
+        document.getElementById('image').addEventListener('change', function() {
+        var imageInput = this;
+        var imagePreview = document.getElementById('icon_img_prv');
+    
+    if (imageInput.files && imageInput.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            // ファイルを読み込んでプレビューを更新
+            imagePreview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(imageInput.files[0]);
+    } else {
+        // ファイルが選択されていない場合、デフォルトのプロフィール画像を表示
+        imagePreview.src = "{{ asset('/storage/img/profile.jpg') }}";
+    }
 });
 </script>
 
