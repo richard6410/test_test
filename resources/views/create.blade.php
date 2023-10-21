@@ -73,7 +73,7 @@
 
         <div class="col-12 mb-2 mt-2">
             <button type="submit" class="btn btn-primary">登録</button>
-            <a class="btn btn-success" href="{{ url('/itirans') }}?page={{ $page_id }}">戻る</a>
+            <a class="btn btn-success" href="{{ url('/products') }}?page={{ $page_id }}">戻る</a>
         </div>
     </div>
 </form>

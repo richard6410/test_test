@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Maker;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -47,10 +47,24 @@ class ProductController extends Controller
             // バリデーションルール
         ]);
 
-        $data = $request->all();
-        Product::createProduct($data);
+        // DBトランザクションの開始
+        DB::beginTransaction();
 
-        return redirect()->route('product.create')->with('success', '登録しました');
+        try {
+            $data = $request->all();
+            Product::createProduct($data);
+
+            // トランザクションのコミット（変更を保存）
+            DB::commit();
+
+            return redirect()->route('product.create')->with('success', '登録しました');
+        } catch (\Exception $e) {
+            // エラーが発生した場合、トランザクションをロールバック
+            DB::rollback();
+
+            // エラーハンドリングまたはエラーメッセージの表示
+            // 例: return back()->with('error', 'エラーメッセージ');
+        }
     }
 
     public function show(Product $product)
@@ -71,16 +85,45 @@ class ProductController extends Controller
             // バリデーションルール
         ]);
 
-        $data = $request->all();
-        Product::updateProduct($product, $data);
+        // DBトランザクションの開始
+        DB::beginTransaction();
 
-        return redirect()->route('products.index')->with('success', '変更しました');
+        try {
+            $data = $request->all();
+            Product::updateProduct($product, $data);
+
+            // トランザクションのコミット（変更を保存）
+            DB::commit();
+
+            return redirect()->route('products.index')->with('success', '変更しました');
+        } catch (\Exception $e) {
+            // エラーが発生した場合、トランザクションをロールバック
+            DB::rollback();
+
+            // エラーハンドリングまたはエラーメッセージの表示
+            // 例: return back()->with('error', 'エラーメッセージ');
+        }
     }
 
     public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect()->route('products.index')->with('success', '商品'.$product->syouhinmei.'を削除しました');
+        // DBトランザクションの開始
+        DB::beginTransaction();
+
+        try {
+            $product->delete();
+
+            // トランザクションのコミット（変更を保存）
+            DB::commit();
+
+            return redirect()->route('products.index')->with('success', '商品'.$product->syouhinmei.'を削除しました');
+        } catch (\Exception $e) {
+            // エラーが発生した場合、トランザクションをロールバック
+            DB::rollback();
+
+            // エラーハンドリングまたはエラーメッセージの表示
+            // 例: return back()->with('error', 'エラーメッセージ');
+        }
     }
 
     public function search(Request $request)
