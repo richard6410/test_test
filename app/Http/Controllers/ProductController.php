@@ -136,5 +136,7 @@ class ProductController extends Controller
 
         return view('index')->with(['products' => $products, 'page_id' => $page_id]);
     }
+    
 }
+
 
