@@ -51,8 +51,8 @@
 
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                    @foreach($makers as $maker)
-                        @if($maker->id==$product->maker) {{ $maker->str }}@endif
+                    @foreach($companies as $company)
+                        @if($company->id==$product->company) {{ $company->str }}@endif
                     @endforeach
             </div>
         </div>

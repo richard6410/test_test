@@ -13,12 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tests', function (Blueprint $table) {           
-            $table->bigIncrements('id');		
-            $table->string('title'); // タイトル
-            $table->string('content'); // 本文		
-            $table->timestamps();	
-        });
+        Schema::rename('makers', 'companies');
     }
 
     /**
@@ -28,6 +23,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tests');
+        Schema::table('companies', function (Blueprint $table) {
+            //
+        });
     }
 };

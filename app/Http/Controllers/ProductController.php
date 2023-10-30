@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Maker;
+use App\Models\company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,11 +20,11 @@ class ProductController extends Controller
             'b.kakaku',
             'b.zaikosuu',
             'b.comment',
-            'r.str as maker',
+            'r.company_name as company',
         ])
         ->from('products as b')
-        ->join('makers as r', function($join) {
-            $join->on('b.maker','=', 'r.id');
+        ->join('companies as r', function($join) {
+            $join->on('b.company','=', 'r.id');
         })
         ->orderBy('b.id','DESC')
         ->paginate(5);
@@ -37,72 +37,32 @@ class ProductController extends Controller
 
     public function create()
     {
-        $makers = Maker::all();
-        return view('create')->with('page_id', request()->page_id)->with('makers', $makers);
+        $companies = Company::all();
+        return view('create')->with('page_id', request()->page_id)->with('companies', $companies);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            // バリデーションルール
-        ]);
-
-        // DBトランザクションの開始
-        DB::beginTransaction();
-
-        try {
-            $data = $request->all();
-            Product::createProduct($data);
-
-            // トランザクションのコミット（変更を保存）
-            DB::commit();
-
-            return redirect()->route('product.create')->with('success', '登録しました');
-        } catch (\Exception $e) {
-            // エラーが発生した場合、トランザクションをロールバック
-            DB::rollback();
-
-            // エラーハンドリングまたはエラーメッセージの表示
-            // 例: return back()->with('error', 'エラーメッセージ');
-        }
+        return redirect()->route('product.create')
+        ->with('success','登録しました');
     }
 
     public function show(Product $product)
     {
-        $makers = Maker::all();
-        return view('show', compact('product', 'makers'))->with('page_id', request()->page_id);
+        $companies = Company::all();
+        return view('show', compact('product', 'companies'))->with('page_id', request()->page_id);
     }
 
     public function edit(Product $product)
     {
-        $makers = Maker::all();
-        return view('edit', compact('product', 'makers'))->with('page_id', request()->page_id);
+        $companies = Company::all();
+        return view('edit', compact('product', 'companies'))->with('page_id', request()->page_id);
     }
 
     public function update(Request $request, Product $product)
     {
-        $request->validate([
-            // バリデーションルール
-        ]);
-
-        // DBトランザクションの開始
-        DB::beginTransaction();
-
-        try {
-            $data = $request->all();
-            Product::updateProduct($product, $data);
-
-            // トランザクションのコミット（変更を保存）
-            DB::commit();
-
-            return redirect()->route('products.index')->with('success', '変更しました');
-        } catch (\Exception $e) {
-            // エラーが発生した場合、トランザクションをロールバック
-            DB::rollback();
-
-            // エラーハンドリングまたはエラーメッセージの表示
-            // 例: return back()->with('error', 'エラーメッセージ');
-        }
+        return redirect()->route('products.index')
+            ->with('success','変更しました'); 
     }
 
     public function destroy(Product $product)
@@ -129,14 +89,13 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $syouhinmei = $request->input('syouhinmei');
-        $maker = $request->input('maker');
+        $company = $request->input('company');
 
-        $products = Product::searchProducts($syouhinmei, $maker);
+        $products = Product::searchProducts($syouhinmei, $company);
         $page_id = $request->input('page_id');
 
         return view('index')->with(['products' => $products, 'page_id' => $page_id]);
-    }
-    
+    }    
 }
 
 

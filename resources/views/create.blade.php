@@ -50,13 +50,13 @@
 
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                <select name="maker" class="form-select">    
+                <select name="company" class="form-select">    
                 <option>メーカー名</option>
-                    @foreach($makers as $maker)
-                        <option value="{{$maker->id}}">{{$maker->str}}</option>
+                    @foreach($companies as $company)
+                        <option value="{{$company->id}}">{{$company->str}}</option>
                     @endforeach
                 </select>
-                @error('maker')
+                @error('company')
                 <span style="color:red;">メーカーを選択してください。</span>
                 @enderror
             </div>
