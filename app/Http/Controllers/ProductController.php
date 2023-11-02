@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\company;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,16 +22,15 @@ class ProductController extends Controller
             'b.comment',
             'b.company_name',
         ])
+       
         ->from('products as b')
-        ->join('companies as r', function($join) {
-            $join->on('b.company_name','=', 'r.id');
-        })
-        ->orderBy('b.id','DESC')
+        ->join('companies as r', 'b.company_name', '=', 'r.id') // 結合条件を修正
+        ->orderBy('b.id', 'DESC')
         ->paginate(5);
-
-        return view('index',compact('products'))
-            ->with('page_id',request()->page)
-            ->with('i',(request()->input('page',1) -1)*5);
+        
+        return view('index', compact('products'))
+            ->with('page_id', request()->page)
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
 
@@ -89,9 +88,9 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $syouhinmei = $request->input('syouhinmei');
-        $company = $request->input('company');
+        $company_name = $request->input('company_name');
 
-        $products = Product::searchProducts($syouhinmei, $company);
+        $products = Product::searchProducts($syouhinmei, $company_name);
         $page_id = $request->input('page_id');
 
         return view('index')->with(['products' => $products, 'page_id' => $page_id]);

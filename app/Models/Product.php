@@ -18,12 +18,10 @@ class Product extends Model
             'b.kakaku',
             'b.zaikosuu',
             'b.comment',
-            'r.str as company_name',
+            'b.company_name',
         ])
         ->from('products as b')
-        ->join('companies as r', function ($join) {
-            $join->on('b.company_name', 'r.id');
-        })
+        ->join('companies as r', 'b.company_name', '=', 'r.id') // 結合条件を修正
         ->orderBy('b.id', 'DESC')
         ->paginate(5);
     }
