@@ -20,11 +20,11 @@ class ProductController extends Controller
             'b.kakaku',
             'b.zaikosuu',
             'b.comment',
-            'r.company_name as company',
+            'b.company_name',
         ])
         ->from('products as b')
         ->join('companies as r', function($join) {
-            $join->on('b.company','=', 'r.id');
+            $join->on('b.company_name','=', 'r.id');
         })
         ->orderBy('b.id','DESC')
         ->paginate(5);

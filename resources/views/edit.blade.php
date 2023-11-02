@@ -65,7 +65,7 @@
             <div class="form-group">
                 <select name="company" class="form-select">    
                 <option value="0">メーカー名</option>
-                    @foreach($conpanyies as $company)
+                    @foreach($companies as $company)
                         <option value="{{ $company->id }}"@if($company->id==$product->company) selected @endif>{{ $company->str }}</option>
                     @endforeach
                 </select>

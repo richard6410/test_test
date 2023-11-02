@@ -18,11 +18,11 @@ class Product extends Model
             'b.kakaku',
             'b.zaikosuu',
             'b.comment',
-            'r.str as maker',
+            'r.str as company_name',
         ])
         ->from('products as b')
-        ->join('makers as r', function ($join) {
-            $join->on('b.maker', 'r.id');
+        ->join('companies as r', function ($join) {
+            $join->on('b.company_name', 'r.id');
         })
         ->orderBy('b.id', 'DESC')
         ->paginate(5);
@@ -43,7 +43,7 @@ class Product extends Model
     }
 
     $product->syouhinmei = $data['syouhinmei'];
-    $product->maker = $data['maker'];
+    $product->company_name = $data['company_name'];
     $product->kakaku = $data['kakaku'];
     $product->zaikosuu = $data['zaikosuu'];
     $product->comment = $data['comment'];
@@ -72,7 +72,7 @@ class Product extends Model
         }
     
         $product->syouhinmei = $data['syouhinmei'];
-        $product->maker = $data['maker'];
+        $product->company_name = $data['company_name'];
         $product->kakaku = $data['kakaku'];
         $product->zaikosuu = $data['zaikosuu'];
         $product->comment = $data['comment'];
@@ -83,7 +83,7 @@ class Product extends Model
     }
 
 
-    public static function searchProducts($syouhinmei, $maker)
+    public static function searchProducts($syouhinmei, $company_name)
     {
         // 商品を検索するロジックを追加
         $query = Product::select([
@@ -91,17 +91,17 @@ class Product extends Model
             'i.syouhinmei',
             'i.kakaku',
             'i.zaikosuu',
-            'm.str as maker',
+            'i.company_name',
         ])
         ->from('products as i')
-        ->join('makers as m', 'i.maker', '=', 'm.id');
+        ->join('companies as m', 'i.company_name', '=', 'm.id');
     
         if ($syouhinmei) {
             $query->where('i.syouhinmei', 'like', '%' . $syouhinmei . '%');
         }
     
-        if ($maker) {
-            $query->where('m.str', $maker);
+        if ($company_name) {
+            $query->where($company_name);
         }
     
         return $query->paginate(10);
