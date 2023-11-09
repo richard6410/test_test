@@ -58,7 +58,7 @@
         <td><a class="" href="{{ route('product.show', $product->id) }}?page_id={{$page_id}}">{{$product->syouhinmei}}</a></td>
         <td style="text-align:right">{{$product->kakaku}}円</td>
         <td style="text-align:right">{{$product->zaikosuu}}</td>
-        <td style="text-align:right">{{$product->company}}</td>
+        <td style="text-align:right">{{$product->company_name}}</td>
         <td style="text-align:center">
             <a class="btn btn-primary" href="{{ route('product.show', $product->id) }}?page_id={{$page_id}}">詳細</a>
         </td>

@@ -20,7 +20,7 @@ class ProductController extends Controller
             'b.kakaku',
             'b.zaikosuu',
             'b.comment',
-            'b.company_name',
+            'r.company_name',
         ])
        
         ->from('products as b')
