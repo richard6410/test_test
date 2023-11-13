@@ -13,7 +13,20 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = product::select([
+        $products = Product::select([
+            'products.id',
+            'products.image',
+            'products.syouhinmei',
+            'products.kakaku',
+            'products.zaikosuu',
+            'products.comment',
+            'companies.company_name',
+        ])
+        ->join('companies', 'products.company_name', '=', 'companies.id')
+        ->orderBy('products.id', 'DESC')
+        ->paginate(5);
+
+       /*  $products = product::select([
             'b.id',
             'b.image',
             'b.syouhinmei',
@@ -27,7 +40,8 @@ class ProductController extends Controller
         ->join('companies as r', 'b.company_name', '=', 'r.id') // 結合条件を修正
         ->orderBy('b.id', 'DESC')
         ->paginate(5);
-        
+         */
+
         return view('index', compact('products'))
             ->with('page_id', request()->page)
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -37,13 +51,31 @@ class ProductController extends Controller
     public function create()
     {
         $companies = Company::all();
-        return view('create')->with('page_id', request()->page_id)->with('companies', $companies);
+        return view('create')
+            ->with('page_id', request()->page_id)->with('companies', $companies);
     }
 
     public function store(Request $request)
     {
-        return redirect()->route('product.create')
-        ->with('success','登録しました');
+        try {
+            $product = new Product;
+
+            $product->syouhinmei = $request->input('syouhinmei');
+            $product->company_name = $request->input('company_name');
+            $product->kakaku = $request->input('kakaku');
+            $product->zaikosuu = $request->input('zaikosuu');
+            $product->comment = $request->input('comment');
+
+            $product->save();
+
+            return redirect()->route('products.index')
+            ->with('success', '登録しました');
+        } catch (\Exception $e) {
+            \Log::error($e);
+
+            return redirect()->route('products.index')
+            ->with('error', '登録中にエラーが発生しました');
+        }
     }
 
     public function show(Product $product)
@@ -66,22 +98,17 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        // DBトランザクションの開始
         DB::beginTransaction();
 
         try {
             $product->delete();
 
-            // トランザクションのコミット（変更を保存）
             DB::commit();
 
             return redirect()->route('products.index')->with('success', '商品'.$product->syouhinmei.'を削除しました');
         } catch (\Exception $e) {
-            // エラーが発生した場合、トランザクションをロールバック
             DB::rollback();
-
-            // エラーハンドリングまたはエラーメッセージの表示
-            // 例: return back()->with('error', 'エラーメッセージ');
+            return back()->with('error', '削除中にエラーが発生しました: '.$e->getMessage());
         }
     }
 
