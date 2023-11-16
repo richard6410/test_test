@@ -51,9 +51,11 @@
 
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                    @foreach($companies as $company)
-                        @if($company->id==$product->company) {{ $company->str }}@endif
-                    @endforeach
+                @foreach($companies as $company_name)
+                    @if($company_name->id == $product->company_name)
+                        <span>{{ $company_name->company_name }}</span>
+                    @endif
+                @endforeach
             </div>
         </div>
         <div class="col-12 mb-2 mt-2">

@@ -80,29 +80,29 @@
 </div>
 
 <script>
-document.getElementById('registrationButton').addEventListener('click', function(e) {
-    e.preventDefault(); // ページ遷移を防ぐ
-    document.getElementById('registrationForm').submit(); // フォームをサブミット
-});
+    document.getElementById('registrationButton').addEventListener('click', function(e) {
+        e.preventDefault(); // ページ遷移を防ぐ
+        document.getElementById('registrationForm').submit(); // フォームをサブミット
+    });
 
-        document.getElementById('image').addEventListener('change', function() {
-        var imageInput = this;
-        var imagePreview = document.getElementById('icon_img_prv');
-    
-    if (imageInput.files && imageInput.files[0]) {
-        var reader = new FileReader();
+    document.getElementById('image').addEventListener('change', function() {
+            var imageInput = this;
+            var imagePreview = document.getElementById('icon_img_prv');
+        
+        if (imageInput.files && imageInput.files[0]) {
+            var reader = new FileReader();
 
-        reader.onload = function(e) {
-            // ファイルを読み込んでプレビューを更新
-            imagePreview.src = e.target.result;
-        };
+            reader.onload = function(e) {
+                // ファイルを読み込んでプレビューを更新
+                imagePreview.src = e.target.result;
+            };
 
-        reader.readAsDataURL(imageInput.files[0]);
-    } else {
-        // ファイルが選択されていない場合、デフォルトのプロフィール画像を表示
-        imagePreview.src = "{{ asset('/storage/img/profile.jpg') }}";
-    }
-});
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            // ファイルが選択されていない場合、デフォルトのプロフィール画像を表示
+            imagePreview.src = "{{ asset('/storage/img/profile.jpg') }}";
+        }
+    });
 </script>
 
 @endsection

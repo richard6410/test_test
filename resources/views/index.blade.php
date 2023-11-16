@@ -7,7 +7,7 @@
             <input type="text" name="syouhinmei" class="form-control" placeholder="商品名で検索">
         </div>
         <div class="col">
-            <select name="company" class="form-control">
+            <select name="company_name" class="form-control">
                 <option value="" selected>メーカーを選択</option>
                 <option value="A">A</option>
                 <option value="B">B</option>

@@ -63,14 +63,16 @@
 
         <div class="col-12 mb-2 mt-2">
             <div class="form-group">
-                <select name="company" class="form-select">    
-                <option value="0">メーカー名</option>
+                <select name="company_name" class="form-select">    
+                    <option value="0">メーカー名</option>
                     @foreach($companies as $company)
-                        <option value="{{ $company->id }}"@if($company->id==$product->company) selected @endif>{{ $company->str }}</option>
+                        <option value="{{ $company->id }}" @if($company->id == $product->company_name) selected @endif>
+                            {{ $company->company_name }}
+                        </option>
                     @endforeach
                 </select>
-                @error('company')
-                <span style="color:red;">メーカーを選択してください。</span>
+                @error('company_name')
+                    <span style="color: red;">メーカーを選択してください。</span>
                 @enderror
             </div>
         </div>

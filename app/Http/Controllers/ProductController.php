@@ -57,25 +57,19 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            $product = new Product;
-
-            $product->syouhinmei = $request->input('syouhinmei');
-            $product->company_name = $request->input('company_name');
-            $product->kakaku = $request->input('kakaku');
-            $product->zaikosuu = $request->input('zaikosuu');
-            $product->comment = $request->input('comment');
-
-            $product->save();
-
-            return redirect()->route('products.index')
-            ->with('success', '登録しました');
-        } catch (\Exception $e) {
-            \Log::error($e);
-
-            return redirect()->route('products.index')
-            ->with('error', '登録中にエラーが発生しました');
-        }
+        $data = [
+            'syouhinmei' => $request->input('syouhinmei'),
+            'company_name' => $request->input('company_name'),
+            'kakaku' => $request->input('kakaku'),
+            'zaikosuu' => $request->input('zaikosuu'),
+            'comment' => $request->input('comment'),
+            'image' => $request->file('image'), // ファイルの取得
+        ];
+    
+        Product::createProduct($request);
+        
+        return redirect()->route('products.index')
+            ->with('success','登録しました'); 
     }
 
     public function show(Product $product)
