@@ -95,7 +95,6 @@
 </form>
 </div>
 <script>
-    // 画像プレビューを表示するための関数
     function previewImage() {
         var imageInput = document.getElementById('imageInput');
         var imagePreview = document.getElementById('imagePreview');
@@ -104,18 +103,15 @@
             var reader = new FileReader();
 
             reader.onload = function(e) {
-                // ファイルを読み込んでプレビューを更新
                 imagePreview.src = e.target.result;
             };
 
             reader.readAsDataURL(imageInput.files[0]);
         } else {
-            // ファイルが選択されていない場合、デフォルトのプロフィール画像を表示
             imagePreview.src = "{{ asset('storage/images/' . $product->image) }}";
         }
     }
 
-    // ファイル選択時に画像プレビューを表示
     document.getElementById('imageInput').addEventListener('change', previewImage);
 </script>
 
