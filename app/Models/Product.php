@@ -90,17 +90,17 @@ class Product extends Model
             'i.syouhinmei',
             'i.kakaku',
             'i.zaikosuu',
-            'i.company_name',
+            'm.company_name',
         ])
         ->from('products as i')
-        ->join('companies as m', 'i.company_name', '=', 'm.id');
+        ->join('companies as m', 'i.company_name', 'm.id');
     
         if ($syouhinmei) {
             $query->where('i.syouhinmei', 'like', '%' . $syouhinmei . '%');
         }
     
         if ($company_name) {
-            $query->where('i.company_name', 'like', '%' . $company_name . '%');
+            $query->where('m.company_name',$company_name);
         }
     
         return $query->paginate(5);
