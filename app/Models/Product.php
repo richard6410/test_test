@@ -23,7 +23,7 @@ class Product extends Model
             'r.company_name',
         ])
         ->from('products as b')
-        ->join('companies as r', 'b.company_name', '=', 'r.id') // 結合条件を修正
+        ->join('companies as r', 'b.company_name', '=', 'r.id') 
         ->orderBy('b.id', 'DESC')
         ->paginate(5);
     }
@@ -77,7 +77,7 @@ class Product extends Model
             return $product;
         } catch (\Exception $e) {
             Log::error('Error updating product: ' . $e->getMessage());
-            throw $e; // 再スローして呼び出し元に例外を伝える
+            throw $e; 
         }
     }
 
@@ -86,6 +86,7 @@ class Product extends Model
     {
         $query = Product::select([
             'i.id',
+            'i.image',
             'i.syouhinmei',
             'i.kakaku',
             'i.zaikosuu',
@@ -99,7 +100,7 @@ class Product extends Model
         }
     
         if ($company_name) {
-            $query->where($company_name);
+            $query->where('i.company_name', 'like', '%' . $company_name . '%');
         }
     
         return $query->paginate(5);
