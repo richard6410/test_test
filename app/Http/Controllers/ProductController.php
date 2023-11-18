@@ -53,10 +53,12 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        $products = Product::updateProduct();
+        $data = $request->all();
+
+        Product::updateProduct($product, $data);
 
         return redirect()->route('products.index')
-            ->with('success','変更しました'); 
+            ->with('success', '変更しました');
     }
 
     public function destroy(Product $product)

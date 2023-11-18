@@ -54,31 +54,29 @@ class Product extends Model
     public static function updateProduct($product, $data)
     {
         try {
-            if (isset($data['image']) && $data['image']->isValid()) {
-                $original = $data['image']->getClientOriginalName();
+            if (isset($data['image']) && is_string($data['image']) && file_exists($data['image'])) {
+                $original = pathinfo($data['image'], PATHINFO_FILENAME);
                 $name = date('Ymd_His') . '_' . $original;
-                $path = $data['image']->storeAs('public/images', $name);
-        
+    
+                $path = Storage::putFileAs('public/images', new File($data['image']), $name);
+    
                 if ($product->image) {
                     Storage::delete('public/images/' . $product->image);
                 }
-        
+    
                 $product->image = $name;
             }
-        
+    
             $product->syouhinmei = $data['syouhinmei'];
             $product->company_name = $data['company_name'];
             $product->kakaku = $data['kakaku'];
-            $product->zaikosuu = $data['zaikosuu'];
-            $product->comment = $data['comment'];
-        
+    
             $product->save();
-        
-            return $product;
         } catch (\Exception $e) {
             Log::error('Error updating product: ' . $e->getMessage());
             throw $e; 
         }
+       
     }
 
 
