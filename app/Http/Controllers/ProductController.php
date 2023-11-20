@@ -23,7 +23,10 @@ class ProductController extends Controller
     {
         $companies = Company::all();
         return view('create')
-            ->with('page_id', request()->page_id)->with('companies', $companies);
+            ->with([
+                'page_id' => request()->page_id, 
+                'companies' => $companies,
+            ]);
     }
 
     public function store(Request $request)

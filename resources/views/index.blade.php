@@ -9,9 +9,9 @@
         <div class="col">
             <select name="company_name" class="form-control">
                 <option value="" selected>メーカーを選択</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
                 <!-- 他のメーカーを追加 -->
             </select>
         </div>
