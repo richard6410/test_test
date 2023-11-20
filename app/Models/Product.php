@@ -98,7 +98,7 @@ class Product extends Model
         }
     
         if ($company_name) {
-            $query->where('m.company_name',$company_name);
+            $query->where('m.id',$company_name);
         }
     
         return $query->paginate(5);
