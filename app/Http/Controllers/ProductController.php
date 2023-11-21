@@ -12,8 +12,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::getAllProducts();
+        $companies = Company::all(); 
         
-        return view('index', compact('products'))
+        return view('index', compact('products','companies'))
             ->with('page_id', request()->page)
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -91,6 +92,7 @@ class ProductController extends Controller
 
         return view('index')->with(['products' => $products, 'page_id' => $page_id]);
     }    
+    
 }
 
 

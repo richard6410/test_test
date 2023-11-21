@@ -8,11 +8,9 @@
         </div>
 </div>
 
-<form action="{{ route('product.update',$product->id) }}" method="POST">
+<form action="{{ route('product.update',$product->id) }}" method="POST" enctype="multipart/form-data">
     @method('PUT')
     @csrf
-
-    
 
     <div class="row">
         <div class="col-12 mb-2 mt-2">

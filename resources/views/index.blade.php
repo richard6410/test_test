@@ -9,10 +9,9 @@
         <div class="col">
             <select name="company_name" class="form-control">
                 <option value="" selected>メーカーを選択</option>
-                <option value="1">A</option>
-                <option value="2">B</option>
-                <option value="3">C</option>
-                <!-- 他のメーカーを追加 -->
+                @foreach($companies as $company)
+                    <option value="{{ $company->id }}">{{ $company->campany_name }}</option>
+                @endforeach
             </select>
         </div>
         <div class="col">
@@ -21,7 +20,7 @@
     </div>
 </form>
     <div class="text-right">
-    <a class="btn btn-success" href="{{ route('product.create')}}?page_id={{$page_id}}">新規登録</a>
+    <a class="btn btn-success" href="{{ route('product.create')}}">新規登録</a>
     </div>
 </div>
 </div>
@@ -55,12 +54,12 @@
             画像なし
             @endif
         </td>
-        <td><a class="" href="{{ route('product.show', $product->id) }}?page_id={{$page_id}}">{{$product->syouhinmei}}</a></td>
+        <td><a class="" href="{{ route('product.show', $product->id) }}">{{$product->syouhinmei}}</a></td>
         <td style="text-align:right">{{$product->kakaku}}円</td>
         <td style="text-align:right">{{$product->zaikosuu}}</td>
         <td style="text-align:right">{{$product->company_name}}</td>
         <td style="text-align:center">
-            <a class="btn btn-primary" href="{{ route('product.show', $product->id) }}?page_id={{$page_id}}">詳細</a>
+            <a class="btn btn-primary" href="{{ route('product.show', $product->id) }}">詳細</a>
         </td>
         <td style="text-align:center">
             <form action ="{{ route('product.destroy',$product -> id )}}"method="POST">

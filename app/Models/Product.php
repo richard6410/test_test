@@ -66,10 +66,12 @@ class Product extends Model
     
                 $product->image = $name;
             }
-    
+
             $product->syouhinmei = $data['syouhinmei'];
             $product->company_name = $data['company_name'];
             $product->kakaku = $data['kakaku'];
+            $product->zaikosuu = $data['zaikosuu'];
+            $product->comment = $data['comment'];
     
             $product->save();
         } catch (\Exception $e) {
