@@ -90,8 +90,10 @@ class ProductController extends Controller
         $products = Product::searchProducts($syouhinmei, $company_name);
         $page_id = $request->input('page_id');
 
-        return view('index')->with(['products' => $products, 'page_id' => $page_id]);
-    }    
+        $companies = Company::all();
+
+        return view('index', compact('products', 'companies', 'page_id'));
+    }
     
 }
 

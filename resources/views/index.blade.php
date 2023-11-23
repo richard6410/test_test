@@ -9,8 +9,9 @@
         <div class="col">
             <select name="company_name" class="form-control">
                 <option value="" selected>メーカーを選択</option>
+
                 @foreach($companies as $company)
-                    <option value="{{ $company->id }}">{{ $company->campany_name }}</option>
+                    <option value="{{ $company->id }}">{{ $company->company_name }}</option>
                 @endforeach
             </select>
         </div>

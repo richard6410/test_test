@@ -96,11 +96,12 @@
         </div>
 </form>
 </div>
+
 <script>
-    function previewImage() {
-        var imageInput = document.getElementById('imageInput');
-        var imagePreview = document.getElementById('imagePreview');
-        
+    document.getElementById('image').addEventListener('change', function() {
+        var imageInput = this;
+        var imagePreview = document.getElementById('icon_img_prv');
+
         if (imageInput.files && imageInput.files[0]) {
             var reader = new FileReader();
 
@@ -110,11 +111,17 @@
 
             reader.readAsDataURL(imageInput.files[0]);
         } else {
-            imagePreview.src = "{{ asset('storage/images/' . $product->image) }}";
+            imagePreview.src = "{{ asset('/storage/images/default_image.jpg') }}"; // デフォルトの画像パスに変更
         }
-    }
+    });
 
-    document.getElementById('imageInput').addEventListener('change', previewImage);
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        this.submit();
+    });
 </script>
+
+
 
 @endsection

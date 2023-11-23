@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class Product extends Model
@@ -51,19 +53,20 @@ class Product extends Model
         
     }
 
-    public static function updateProduct($product, $data)
+ 
+        public static function updateProduct($product, $data)
     {
         try {
-            if (isset($data['image']) && is_string($data['image']) && file_exists($data['image'])) {
-                $original = pathinfo($data['image'], PATHINFO_FILENAME);
+            if ($data['image'] && $data['image']->isValid()) {
+                $original = $data['image']->getClientOriginalName();
                 $name = date('Ymd_His') . '_' . $original;
-    
-                $path = Storage::putFileAs('public/images', new File($data['image']), $name);
-    
+
+                $path = $data['image']->storeAs('public/images', $name);
+
                 if ($product->image) {
                     Storage::delete('public/images/' . $product->image);
                 }
-    
+
                 $product->image = $name;
             }
 
@@ -72,13 +75,12 @@ class Product extends Model
             $product->kakaku = $data['kakaku'];
             $product->zaikosuu = $data['zaikosuu'];
             $product->comment = $data['comment'];
-    
+
             $product->save();
         } catch (\Exception $e) {
-            Log::error('Error updating product: ' . $e->getMessage());
+            Log::error('製品の更新中にエラーが発生しました: ' . $e->getMessage());
             throw $e; 
         }
-       
     }
 
 
