@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 
@@ -32,32 +33,30 @@ class Product extends Model
 
         public static function createProduct($data)
     {
-            $product = new Product;
+        $product = new Product;
 
-            if (isset($data['image']) && $data['image']->isValid()) {
-                $original = $data['image']->getClientOriginalName();
-                $name = date('Ymd_His') . '_' . $original;
-                $path = $data['image']->storeAs('public/images', $name);
-
-                $product->image = $name;
-            }
-
-
-            $product->syouhinmei = $data['syouhinmei'];
-            $product->company_name = $data['company_name'];
-            $product->kakaku = $data['kakaku'];
-            $product->zaikosuu = $data['zaikosuu'];
-            $product->comment = $data['comment'];
-
-            $product->save();
-        
+        if (isset($data['image']) && $data['image']->isValid()) {
+            $original = $data['image']->getClientOriginalName();
+            $name = Str::slug(pathinfo($original, PATHINFO_FILENAME)) . '_' . time() . '.' . $data['image']->getClientOriginalExtension();
+            $path = $data['image']->storeAs('public/images', $name);
+    
+            $product->image = $name;
+        }
+    
+        $product->syouhinmei = $data['syouhinmei'];
+        $product->company_name = $data['company_name'];
+        $product->kakaku = $data['kakaku'];
+        $product->zaikosuu = $data['zaikosuu'];
+        $product->comment = $data['comment'];
+    
+        $product->save();
     }
 
  
         public static function updateProduct($product, $data)
     {
         try {
-            if ($data['image'] && $data['image']->isValid()) {
+            if (isset($data['image']) && $data['image']->isValid()) {
                 $original = $data['image']->getClientOriginalName();
                 $name = date('Ymd_His') . '_' . $original;
 
@@ -84,7 +83,7 @@ class Product extends Model
     }
 
 
-    public static function searchProducts($syouhinmei, $company_name)
+    public static function searchProducts($syouhinmei, $company_name, $price_min, $price_max,$stock_min,$stock_max)
     {
         $query = Product::select([
             'i.id',
@@ -104,7 +103,24 @@ class Product extends Model
         if ($company_name) {
             $query->where('m.id',$company_name);
         }
+
+        if ($price_min) {
+            $query->where('i.kakaku', '>=', $price_min);
+        }
+    
+        if ($price_max) {
+            $query->where('i.kakaku', '<=', $price_max);
+        }
+
+        if ($stock_min) {
+            $query->where('i.zaikosuu', '>=', $stock_min);
+        }
+    
+        if ($stock_max) {
+            $query->where('i.zaikosuu', '<=', $stock_max);
+        }
     
         return $query->paginate(5);
     }
+    
 }

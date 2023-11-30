@@ -20,15 +20,18 @@
         </div>
 
         <div class="col-12 mb-2 mt-2">
-            商品画像:
-            @if($product->image)
-                <img src="{{ asset('storage/images/' . $product->image) }}" alt="商品画像" class="img-thumbnail">
-            @else
-                <p>画像なし</p>
-            @endif
+            <div class="form-group">
+                商品画像:
+                @if($product->image)
+                    <img src="{{ asset('storage/images/' . $product->image) }}" alt="商品画像" class="img-thumbnail" id="image-preview">
+                @else
+                    <p>画像なし</p>
+                @endif
+            </div>
         </div>
+
         <div class="col-12 mb-2 mt-2">
-            <input type="file" name="image" class="form-control" placeholder="商品画像">
+            <input type="file" name="image" class="form-control" id="image" placeholder="商品画像">
         </div>
 
 
@@ -94,34 +97,18 @@
             <button type="submit" class="btn btn-primary">変更</button>
             <a class="btn btn-success" href="{{ route('product.show', $product->id) }}?page_id={{$page_id}}">戻る</a>
         </div>
+    </div>
 </form>
-</div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.getElementById('image').addEventListener('change', function() {
-        var imageInput = this;
-        var imagePreview = document.getElementById('icon_img_prv');
-
-        if (imageInput.files && imageInput.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-            };
-
-            reader.readAsDataURL(imageInput.files[0]);
-        } else {
-            imagePreview.src = "{{ asset('/storage/images/default_image.jpg') }}"; // デフォルトの画像パスに変更
-        }
-    });
-
-    document.getElementById('registrationForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        this.submit();
+    $(document).ready(function() {
+        $('#image').change(function() {
+            var input = this;
+            var url = URL.createObjectURL(input.files[0]);
+            $('#image-preview').attr('src', url);
+        });
     });
 </script>
-
-
 
 @endsection

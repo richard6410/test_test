@@ -1,11 +1,29 @@
 @extends('app')
 
 @section('content')
-<form action="{{ route('product.search') }}" method="GET" class="mb-3">
+<form action="{{ route('product.search') }}" method="GET" class="mb-3" id="searchForm">
     <div class="row">
         <div class="col">
             <input type="text" name="syouhinmei" class="form-control" placeholder="商品名で検索">
         </div>
+
+        <div class="col">
+            <input type="number" name="price_min" class="form-control" placeholder="最小価格">
+
+        </div>
+
+        <div class="col">
+            <input type="number" name="price_max" class="form-control" placeholder="最大価格">
+        </div>
+
+        <div class="col">
+            <input type="number" name="stock_min" class="form-control" placeholder="最小在庫数">
+        </div>
+
+        <div class="col">
+            <input type="number" name="stock_max" class="form-control" placeholder="最大在庫数">
+        </div>
+            
         <div class="col">
             <select name="company_name" class="form-control">
                 <option value="" selected>メーカーを選択</option>
@@ -32,7 +50,7 @@
 </div>
 </div>
 
-
+<div id="searchResults">
 <table class="table table-bordered">
     <tr>
         <th>ID</th>
@@ -45,6 +63,7 @@
         <th></th>
 
     </tr>
+
     @foreach ($products as $product)
     <tr>
         <td style="text-align:right">{{$product->id}}</td>
@@ -72,6 +91,32 @@
     </tr>
     @endforeach
 </table>
+</div>
 
     {!! $products->links('pagination::bootstrap-5') !!}
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'GET',
+                    url: $(this).attr('action'),
+                    data: {
+                        syouhinmei: $('input[name="syouhinmei"]').val(),
+                        company_name: $('select[name="company_name"]').val(),
+                        price_min: $('input[name="price_min"]').val(),
+                        price_max: $('input[name="price_max"]').val(),
+                        stock_min: $('input[name="stock_min"]').val(),
+                        stock_max: $('input[name="stock_max"]').val(),
+                    },
+                    success: function(response) {
+                        $('#searchResults').html(response);
+                    }
+                });
+            });
+        });
+    </script>
+
 @endsection

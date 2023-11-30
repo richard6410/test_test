@@ -9,25 +9,21 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request, $column = 'id', $direction = 'asc')
     {
-        $products = Product::getAllProducts();
-        $companies = Company::all(); 
-        
-        return view('index', compact('products','companies'))
+        $products = Product::getAllProducts($column, $direction);
+        $companies = Company::all();
+
+        return view('index', compact('products', 'companies'))
             ->with('page_id', request()->page)
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-
     public function create()
     {
         $companies = Company::all();
-        return view('create')
-            ->with([
-                'page_id' => request()->page_id, 
-                'companies' => $companies,
-            ]);
+        $page_id = request()->page_id; 
+        return view('create', compact('page_id', 'companies'));
     }
 
     public function store(Request $request)
@@ -82,12 +78,16 @@ class ProductController extends Controller
         }
     }
 
-    public function search(Request $request)
+    public function search(Request $request,$price_min = null, $price_max = null)
     {
         $syouhinmei = $request->input('syouhinmei');
         $company_name = $request->input('company_name');
+        $price_min = $request->input('price_min');
+        $price_max = $request->input('price_max');
+        $stock_min = $request->input('stock_min');
+        $stock_max = $request->input('stock_max');
 
-        $products = Product::searchProducts($syouhinmei, $company_name);
+        $products = Product::searchProducts($syouhinmei, $company_name, $price_min, $price_max,$stock_min,$stock_max);
         $page_id = $request->input('page_id');
 
         $companies = Company::all();
