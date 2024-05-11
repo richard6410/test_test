@@ -1,0 +1,55 @@
+.container {
+    max-width: 1200px; /* 最大幅を1200pxに設定 */
+    margin: 0 auto; /* 左右のマージンを自動にして中央に配置 */
+    padding: 0 15px; /* コンテナの内側の余白を設定 */
+}
+  
+  /* フォーム要素のスタイリング */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: .5em;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="file"],
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  /* チェックボックス周りのスタイルを調整 */
+  .form-group input[type="checkbox"] {
+    margin-top: 3px;
+  }
+  
+  .form-group label[for="public"] {
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  .button-container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 中央に配置 */
+    padding: 20px 0; /* 上下に20pxのパディングを追加 */
+  }
+  
+  /* ボタンのスタイリング */
+  button {
+    background-color:gray; /* ボタンの背景色 */
+    color: white; /* ボタンのテキスト色 */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer;
+    flex-grow: 1;
+    /* width: 30%; ボタンの幅をコンテナに合わせる */
+  }
+
+  

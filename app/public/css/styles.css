@@ -1,0 +1,111 @@
+.container {
+    max-width: 1200px; /* 最大幅を1200pxに設定 */
+    margin: 0 auto; /* 左右のマージンを自動にして中央に配置 */
+    padding: 0 15px; /* コンテナの内側の余白を設定 */
+}
+
+header {
+    display: flex;
+    justify-content: space-between; /* 左右のコンテンツを画面の両端に配置 */
+    align-items: center; /* 中央揃えにする */
+    background-color: lightblue; /* ヘッダーの背景を水色に設定 */
+}
+
+.header_1 a {
+    background-color: gray; /* ボタンの背景を茶色に設定 */
+    color: white; /* テキスト色を白に設定 */
+    padding: 8px 16px; /* テキスト周りのパディング */
+    text-decoration: none; /* リンクの下線を削除 */
+    border-radius: 5px; /* ボタンの角を丸くする */
+    display: inline-block; /* パディングとボーダーを保持するために使用 */
+    margin: 5px; /* ボタン間の間隔を追加 */
+}
+
+.header_2 a {
+    color: white; /* テキスト色を白に設定 */
+    padding: 8px 16px; /* テキスト周りのパディング */
+    text-decoration: none; /* リンクの下線を削除 */
+    border-radius: 5px; /* ボタンの角を丸くする */
+    display: inline-block; /* パディングとボーダーを保持するために使用 */
+    margin: 5px; /* ボタン間の間隔を追加 */
+    text-align: right; /* 右側のコンテンツを右寄せにする */
+}
+
+.back {
+    padding: 10px;
+    border: none;
+    text-decoration: none;
+}
+
+#date-time-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* 子要素をコンテナの幅いっぱいに広げる */
+    padding: 20px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.title-entry {
+    display: flex;
+    width: 100%; /* 全幅を使用 */
+    margin-bottom: 10px;
+}
+
+.date-time-entry {
+    display: flex;
+    width: 100%; /* 全幅を使用 */
+    justify-content: space-between; /* 要素間にスペースを均等に配分 */
+    margin-bottom: 10px;
+}
+
+.date-time-entry label {
+    margin-right: 5px; /* ラベルの右マージンを設定 */
+}
+
+.date-time-entry input {
+    flex: 1; /* 入力フィールドが利用可能なスペースを均等に占める */
+    margin-right: 10px; /* 入力フィールドの右マージン */
+}
+
+#add-button {
+    background-color: green;
+    color: white;
+    border-radius: 50%; /* 丸形にする */
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+.delete-btn {
+    background-color: red;
+    color: white;
+    border-radius: 50%; /* 丸形にする */
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+#add-button::before, .delete-btn::before {
+    content: '+'; /* プラスボタンの記号 */
+    display: block;
+    font-size: 20px;
+}
+
+.delete-btn::before {
+    content: '−'; /* マイナスボタンの記号 */
+}
+
+.button-container {
+    text-align: center; /* ボタンコンテナ内の要素を中央に */
+    width: 100%; /* 全幅を使用 */
+}
+
+.submit-button {
+    background-color: gray;
+    color: white;
+    padding: 10px 20px; /* サイズ調整 */
+    border: none; /* 枠線なし */
+    cursor: pointer; /* カーソルをポインターに */
+}
