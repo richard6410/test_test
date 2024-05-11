@@ -63,7 +63,7 @@ class CurriculumController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('curriculum.edit');
     }
 
     /**

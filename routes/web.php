@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClasssettingController;
+use App\Http\Controllers\CurriculumController;
+use App\Http\Controllers\DeliveryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,45 +17,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Route::get('/', function () {
-    return ['Laravel' => app()->version()];
-});
- */
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin.layouts.delivery');
 });
 
+Route::get('/list', [App\Http\Controllers\ArticleController::class, 'showList'])->name('list');
 
-Route::get('/public', function () {
-    return view('public');
-})->middleware(['auth'])->name('public');
+// フォーム表示
+Route::get('/classsetting', [ClasssetteigController::class, 'create'])->name('course.create');
+// フォーム送信処理
+Route::post('/classsetting', [ClassSettingController::class, 'store'])->name('classsetting.store');
 
-require __DIR__.'/auth.php';
+Route::get('/curriculums', [CurriculumController::class, 'index'])->name('curriculums.index');
 
+Route::get('/delivery/create/{curriculum}', [DeliveryController::class, 'create'])->name('delivery.create');
+Route::post('/delivery/store', [DeliveryController::class, 'store'])->name('delivery.store');
 
+// 授業管理
+Route::get('/admin/auth/curriculum_edit', [App\Http\Controllers\Admin\Auth\CurriculumController::class, 'edit'])->name('curriculum_edit');
 
-Route::get('/products','App\Http\Controllers\ProductController@index')->name('products.index');
+// お知らせ管理
+Route::get('/article_edit', [ArticleController::class, 'edit'])->name('article_edit');
 
-Route::get('/products/create', 'App\Http\Controllers\ProductController@create')->name('product.create');
-Route::post('/products/store', 'App\Http\Controllers\ProductController@store')->name('product.store');
+// バナー管理
+Route::get('/banner_edit', [BannerController::class, 'edit'])->name('banner_edit');
 
-Route::get('/products/edit/{product}', 'App\Http\Controllers\ProductController@edit')->name('product.edit');
-Route::put('/products/edit/{product}', 'App\Http\Controllers\ProductController@update')->name('product.update');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
-Route::get('/products/show/{product}', 'App\Http\Controllers\ProductController@show')->name('product.show');
-
-Route::delete('/products/destroy/{product}', 'App\Http\Controllers\ProductController@destroy')->name('product.destroy');
-
-Route::get('/product/search', 'App\Http\Controllers\ProductController@search')->name('product.search');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/products/sort/{column}/{direction}', 'ProductController@index')->name('products.sort');
-
+Route::post('/save-delivery', [DeliveryController::class, 'save'])->name('save_delivery');
