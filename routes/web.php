@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClasssettingController;
-use App\Http\Controllers\CurriculumController;
-use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\Admin\CurriculumController;
+use App\Http\Controllers\Admin\DeliveryController;
 
 
 /*
@@ -18,7 +18,7 @@ use App\Http\Controllers\DeliveryController;
 */
 
 Route::get('/', function () {
-    return view('admin.layouts.delivery');
+    return view('admin.layouts.curriculum_list');
 });
 
 Route::get('/list', [App\Http\Controllers\ArticleController::class, 'showList'])->name('list');
@@ -45,3 +45,16 @@ Route::get('/banner_edit', [BannerController::class, 'edit'])->name('banner_edit
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
 Route::post('/save-delivery', [DeliveryController::class, 'save'])->name('save_delivery');
+Route::get('/curriculum-list', 'App\Http\Controllers\CurriculumController@index')->name('curriculum_list');
+Route::get('/curriculum-list', 'CurriculumController@index')->name('curriculum_list');
+
+Route::get('/delivery', 'App\Http\Controllers\DeliveryController@index')->name('delivery');
+Route::get('/some-path', 'DeliveryController@index')->name('delivery');
+Route::get('/delivery', function () {
+    return view('admin.layouts.delivery');
+})->name('delivery');
+
+Route::get('/delivery', [DeliveryController::class, 'index'])->name('delivery');
+
+Route::get('/curriculums', 'App\Http\Controllers\Admin\CurriculumController@index');
+Route::get('/curriculum-list', 'CurriculumController@index')->name('curriculum-list');

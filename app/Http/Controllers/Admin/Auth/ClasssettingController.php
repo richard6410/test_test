@@ -34,11 +34,11 @@ class ClasssettingController extends Controller
         $curriculum->alway_delivery_flg = $request->has('public') ? 1 : 0;
 
         // サムネイル画像の処理
-        if ($request->hasFile('thumbnail')) {
-            $thumbnail = $request->file('thumbnail');
-            $filename = time() . '_' . $thumbnail->getClientOriginalName();
-            $thumbnail->move(public_path('thumbnails'), $filename);
-            $curriculum->thumbnail = $filename;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('thumbnails'), $filename);
+            $curriculum->image = $filename;
         }
 
         $curriculum->save();

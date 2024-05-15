@@ -1,25 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
-
+namespace App\Http\Controllers\Admin; // この名前空間に統一
+    
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Curriculum;
-
-
+use Illuminate\Support\Facades\DB;
+    
 class CurriculumController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        // データベースからすべての授業情報を取得
         $curriculums = Curriculum::all();
-
-        // 取得した授業情報をビューに渡して授業一覧ページを表示
         return view('admin.layouts.curriculum_list', compact('curriculums'));
     }
 
@@ -63,7 +54,7 @@ class CurriculumController extends Controller
      */
     public function edit($id)
     {
-        return view('curriculum.edit');
+        //
     }
 
     /**
