@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Curriculum extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'video_url',
+        'description',
+        'grade',
+        'thumbnail',
+        'public',
+    ];
 }

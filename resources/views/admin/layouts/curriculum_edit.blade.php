@@ -5,7 +5,7 @@
 @section('content')
 <h2>授業設定</h2>
 
-<form id="curriculum_edit-form" action="{{ route('classsetting.store') }}" method="post" enctype="multipart/form-data">
+<form id="curriculum_edit-form" action="{{ route('admin.curriculums.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-image-container">
         <div class="image-container">
