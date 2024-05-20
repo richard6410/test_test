@@ -92,9 +92,13 @@ header {
 }
 
 .button-container {
-    text-align: center; /* ボタンコンテナ内の要素を中央に */
-    width: 100%; /* 全幅を使用 */
+    display: flex; /* Flexコンテナとして設定 */
+    justify-content: center; /* 水平方向に中央揃え */
+    text-align: center; /* テキストを中央に揃える */
+    width: 100%; /* コンテナの幅を全幅に設定 */
+    margin-top: 20px; /* 上部にマージンを追加 */
 }
+
 
 .submit-button {
     background-color: gray;
@@ -104,28 +108,59 @@ header {
     cursor: pointer; /* カーソルをポインターに */
 }
 
+
 /*curriculum_edit*/
-.form-container > div, .form-container aside > div {
+
+.form-image-container {
     display: flex;
-    justify-content: space-between; /* 要素を左右に均等に配置 */
-    align-items: center; /* 中央揃え */
-    width: 80%; /* 幅を少し縮小して余白を作る */
-    margin: 10px auto; /* 上下のマージンと自動左右マージンで中央揃え */
+    align-items: center; /* 子要素を垂直方向に中央揃え */
+    gap: 20px; /* 子要素間にスペースを設定 */
 }
 
-.label {
-    margin-right: 100px; /* ラベルとインプットの間に余白を設定 */
+.file-input-container {
+    display: flex;
+    align-items: center;
+    flex: 1; /* 必要に応じてフレキシブルに幅を取る */
 }
 
-.input {
-    flex: 5; /* インプットにはより大きなフレックス比を割り当て */
-    width: 100%; /* インプット要素の幅を最大に */
+.image-container {
+    width: 150px; /* 適切な幅を設定 */
+    height: 150px; /* 適切な高さを設定 */
+    display: flex;
+    margin-left: 150px;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0; /* サイズを維持して縮小させない */
 }
 
-/* テキストエリアやセレクトボックスなどの特定のインプットのスタイル */
-input[type="text"],
-input[type="file"],
-textarea,
-select {
-    width: 100%; /* 全ての入力フィールドを同じ幅に */
+#image-preview {
+    max-width: 100%;
+    max-height: 100%;
+    display: block; /* 画像をブロック要素として表示 */
+}
+
+.form-container > div, .form-container > div {
+    display: flex; /* フレックスコンテナとして設定 */
+    align-items: center; /* アイテムを垂直方向の中心に揃える */
+    margin-bottom: 10px; /* 各フィールドの下にマージンを設定 */
+}
+
+.form-container > div > label, .form-container > div > label {
+    flex: 1; /* ラベルに適切なスペースを確保 */
+    min-width: 100px; /* ラベルの最小幅を設定 */
+    margin-right: 10px; /* ラベルとインプットの間にスペースを設定 */
+    text-align: center; /* ラベルのテキストを中央揃えに設定 */
+}
+
+.form-container > div > input, .form-container > div > select, .form-container > div > textarea, .form-container aside > div > input, .form-container aside > div > select, .form-container aside > div > textarea {
+    flex: 3; /* 入力フィールドにはより多くのスペースを確保 */
+    width: auto; /* デフォルトの幅設定をオーバーライド */
+}
+
+.check {
+    display: flex; /* Flexboxを使用して配置を管理 */
+    justify-content: center; /* 要素を中央に配置 */
+    padding-right: 10%; /* 右側にパディングを追加して左にシフト */
+    width: 100%; /* コンテナの幅を全幅に設定 */
 }

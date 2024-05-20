@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\DeliveryController;
 // });
 
 Route::get('/', function () {
-    return view('admin.layouts.curriculum_edit');
+    return view('admin.layouts.delivery');
 });
 //delivery関連
 Route::prefix('admin')->group(function () {
@@ -34,6 +34,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/curriculums', [CurriculumController::class, 'store'])->name('admin.curriculums.store');
 });
 //ヘッダー関連
+Route::get('/curriculum_list', [CurriculumController::class, 'index'])->name('curriculum_list');
 Route::get('/curriculum_edit', [CurriculumController::class, 'index'])->name('curriculum_edit');
 Route::get('/delivery', [DeliveryController::class, 'index'])->name('delivery');
 Route::get('/article_edit', [ArticleController::class, 'edit'])->name('article_edit');
@@ -47,7 +48,7 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 // // フォーム送信処理
 // Route::post('/classsetting', [ClassSettingController::class, 'store'])->name('classsetting.store');
 
-// Route::get('/curriculums', [CurriculumController::class, 'index'])->name('curriculums.index');
+// Route::get('/curriculum', [CurriculumController::class, 'index'])->name('curriculum.index');
 
 // Route::get('/delivery/create/{curriculum}', [DeliveryController::class, 'create'])->name('delivery.create');
 // Route::post('/delivery/store', [DeliveryController::class, 'store'])->name('delivery.store');
@@ -75,5 +76,5 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
 // Route::get('/delivery', [DeliveryController::class, 'index'])->name('delivery');
 
-// Route::get('/curriculums', 'App\Http\Controllers\Admin\CurriculumController@index');
+// Route::get('/curriculum', 'App\Http\Controllers\Admin\CurriculumController@index');
 // Route::get('/curriculum-list', 'CurriculumController@index')->name('curriculum-list');

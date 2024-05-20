@@ -9,8 +9,8 @@
 <body>
     <header>
         <div class="header_1">
-            <a href="{{ route('curriculum_edit') }}">授業管理</a>
-            <a href="{{ route('article_edit') }}">お知らせ管理</a>
+            <a href="{{ route('curriculum_list') }}">授業管理</a>
+            <a href="{{ route('curriculum_edit') }}">お知らせ管理</a>
             <a href="{{ route('banner_edit') }}">バナー管理</a>
         </div>
         <div class="header_2">
