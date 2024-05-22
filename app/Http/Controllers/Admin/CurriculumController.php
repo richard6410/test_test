@@ -15,7 +15,7 @@ class CurriculumController extends Controller
     public function index()
     {
         $curriculums = Curriculum::all();
-        return view('admin.layouts.curriculum_edit', compact('curriculums'));
+        return view('admin.layouts.curriculum_list', compact('curriculums'));
     }
 
     // カリキュラム作成フォームを表示
@@ -59,10 +59,11 @@ class CurriculumController extends Controller
         // 表示ロジックをここに記述
     }
 
-    // カリキュラム編集フォームを表示
+
     public function edit($id)
     {
-        // 編集ロジックをここに記述
+        $curriculum = Curriculum::findOrFail($id);
+        return view('admin.layouts.curriculum_edit', compact('curriculum'));
     }
 
     // カリキュラムを更新

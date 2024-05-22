@@ -68,7 +68,8 @@ class DeliveryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $curriculum = Curriculum::findOrFail($id);
+    return view('admin.layouts.delivery', compact('curriculum'));
     }
 
     /**
