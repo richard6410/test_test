@@ -1,43 +1,32 @@
 @extends('admin.layouts.app')
 
+@section('title', '授業一覧')
+
 @section('content')
 <h1>授業一覧</h1>
 
-<table>
-        <tr>
-            <th>ID</th>
-            <th>サムネイル</th>
-            <th>タイトル</th>
-            <th>動画URL</th>
-            <th>常時公開</th>
-            <th>クラスID</th>
-            <th></th>
-            <th></th>
-        </tr>
-
-        @foreach ($curriculums as $curriculum)
-            <tr>
-                <td>{{ $curriculum->id }}</td>
-                <td>
-                    @if ($curriculum->thumbnail)
-                        <img src="{{ asset('storage/images/' . $curriculum->thumbnail) }}" alt="カリキュラム画像" class="img-thumbnail" width="100">
-                    @else
-                        画像なし
-                    @endif
-                </td>
-                <td>{{ $curriculum->title }}</td>
-                <td>{{ $curriculum->description }}</td>
-                <td>{{ $curriculum->video_url }}</td>
-                <td>{{ $curriculum->alway_delivery_flg }}</td>
-                <td>{{ $curriculum->classes_id }}</td>
-                <td>
-                    <a href="{{ route('curriculum_edit', $curriculum->id) }}" class="btn btn-primary">授業内容編集</a>
-                </td>
-                <td>
-                    <a href="{{ route('delivery_edit', $curriculum->id) }}" class="btn btn-primary">配信日時編集</a>
-                </td>
-            </tr>
-        @endforeach
-</table>
+<div class="cards">
+    @foreach ($curriculums as $curriculum)
+        <div class="card">
+            <img src="{{ asset('storage/images/' . $curriculum->thumbnail) }}" alt="カリキュラム画像">
+            <div class="card-body">
+                <h3 class="card-title">{{ $curriculum->title }}</h3>
+                <p>{{ $curriculum->description }}</p>
+                @if ($curriculum->deliveryTimes->isNotEmpty())
+                    <p>配信日時:</p>
+                    <ul>
+                        @foreach ($curriculum->deliveryTimes as $deliveryTime)
+                            <li>{{ $deliveryTime->delivery_from }} 〜 {{ $deliveryTime->delivery_to }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p>配信日時は設定されていません。</p>
+                @endif
+                <a href="{{ route('curriculum.edit', $curriculum->id) }}" class="btn btn-primary">授業内容編集</a>
+                <a href="{{ route('delivery.edit', $curriculum->id) }}" class="btn btn-primary">配信日時編集</a>
+            </div>
+        </div>
+    @endforeach
+</div>
 @endsection
 

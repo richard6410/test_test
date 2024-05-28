@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\DeliveryTime;
+use Carbon\Carbon;
 
 class DeliveryController extends Controller
 {
@@ -24,8 +26,8 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        $curriculum = Curriculum::findOrFail($curriculumId);
-        return view('delivery.create', compact('curriculum'));
+        $derivery_time = Curriculum::findOrFail($curriculumId);
+        return view('delivery.create', compact('derivery_time'));
     }
 
     /**
@@ -46,7 +48,7 @@ class DeliveryController extends Controller
 
         DeliveryTime::create($validatedData);
 
-        return redirect()->route('curriculum.index')->with('success', '配信日時が登録されました。');
+        return redirect()->route('derivery_time.index')->with('success', '配信日時が登録されました。');
     }
 
     /**
@@ -68,8 +70,11 @@ class DeliveryController extends Controller
      */
     public function edit($id)
     {
-        $curriculum = Curriculum::findOrFail($id);
-    return view('admin.layouts.delivery', compact('curriculum'));
+        $deliveryTime = DeliveryTime::where('curriculums_id', $id)->firstOrFail();
+        $deliveryTime->delivery_from = Carbon::parse($deliveryTime->delivery_from);
+        $deliveryTime->delivery_to = Carbon::parse($deliveryTime->delivery_to);
+
+        return view('admin.layouts.delivery', compact('deliveryTime'));
     }
 
     /**
@@ -79,9 +84,21 @@ class DeliveryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'delivery_from' => 'required|date',
+            'delivery_to' => 'required|date',
+        ]);
+
+        $deliveryTime = DeliveryTime::where('curriculums_id', $id)->firstOrFail();
+        $deliveryTime->update([
+            'delivery_from' => $request->input('delivery_from'),
+            'delivery_to' => $request->input('delivery_to'),
+        ]);
+
+        return redirect()->route('curriculum_list')->with('success', '配信日時が更新されました');
     }
 
     /**
@@ -97,10 +114,6 @@ class DeliveryController extends Controller
 
     public function save(Request $request)
     {
-        $classTitle = $request->input('class-title');
-        $startDate = $request->input('start-date');
-        $startTime = $request->input('start-time');
-        $endDate = $request->input('end-date');
-        $endTime = $request->input('end-time');
+       //
     }
 }

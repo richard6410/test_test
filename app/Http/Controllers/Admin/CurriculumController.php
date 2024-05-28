@@ -14,7 +14,8 @@ class CurriculumController extends Controller
     // カリキュラムの一覧を表示
     public function index()
     {
-        $curriculums = Curriculum::all();
+        // リレーションをロードしてカリキュラムを取得
+        $curriculums = Curriculum::with('deliveryTimes')->get();
         return view('admin.layouts.curriculum_list', compact('curriculums'));
     }
 
@@ -63,18 +64,46 @@ class CurriculumController extends Controller
     public function edit($id)
     {
         $curriculum = Curriculum::findOrFail($id);
+    
         return view('admin.layouts.curriculum_edit', compact('curriculum'));
     }
 
     // カリキュラムを更新
     public function update(Request $request, $id)
     {
-        // 更新ロジックをここに記述
+        $curriculum = Curriculum::findOrFail($id);
+
+        $curriculum -> thumbnail = $request -> input("thumbnail");
+        $curriculum -> classes_id = $request -> input("classes_id");
+        $curriculum -> title = $request -> input("title");
+        $curriculum -> video_url = $request -> input("video_url");
+        $curriculum -> description = $request -> input("description");
+        $curriculum -> alway_delivery_flg = $request -> boolean("alway_delivery_flg");
+        
+        if ($request->hasFile('thumbnail')) {
+            $filename = $request->file('thumbnail')->store('thumbnails', 'public');
+            $curriculum->thumbnail = $filename;
+        } else {
+            $curriculum->thumbnail = $curriculum->thumbnail ?? 'default-thumbnail.jpg';
+        }
+
+        $curriculum -> save();
+
+        return redirect() -> route('curriculum_list');
     }
 
     // カリキュラムを削除
     public function destroy($id)
     {
         // 削除ロジックをここに記述
+    }
+
+    public function showByGrade($grade_id)
+    {
+        $grade = Grade::findOrFail($grade_id);
+        $curriculums = Curriculum::where('grade_id', $grade_id)->get(); // 学年に関連するカリキュラムを取得
+        $grades = Grade::all();
+
+        return view('admin.layouts.curriculums_by_grade', compact('grade', 'curriculums'));
     }
 }

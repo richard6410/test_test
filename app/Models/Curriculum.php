@@ -9,6 +9,12 @@ class Curriculum extends Model
 {
     use HasFactory;
 
+    //リレーション
+    public function deliveryTimes()
+    {
+        return $this->hasMany(DeliveryTime::class, 'curriculums_id');
+    }
+
     protected $table = 'curriculums';
 
     protected $fillable = [

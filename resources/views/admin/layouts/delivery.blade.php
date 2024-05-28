@@ -1,31 +1,24 @@
 @extends('admin.layouts.app')
 
-@section('title', '配信日時設定')
+@section('title', '配信日時編集')
 
 @section('content')
+    <h1>配信日時編集</h1>
 
-<div id="date-time-form">
-    <h2>配信日時設定</h2>
-    
-    <form method="POST" action="{{ route('save_delivery') }}">
-    @csrf
-        <div class="title-entry">
-            <input type="text" id="class-title" name="class-title" placeholder="授業タイトルを入力">
+    <form action="{{ route('delivery.update', $deliveryTime->curriculums_id) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <div class="form-group">
+            <label for="delivery_from">配信開始日時</label>
+            <input type="datetime-local" id="delivery_from" name="delivery_from" value="{{ $deliveryTime->delivery_from->format('Y-m-d\TH:i') }}" class="form-control">
         </div>
 
+        <div class="form-group">
+            <label for="delivery_to">配信終了日時</label>
+            <input type="datetime-local" id="delivery_to" name="delivery_to" value="{{ $deliveryTime->delivery_to->format('Y-m-d\TH:i') }}" class="form-control">
+        </div>
 
-        <div class="date-time-entry">
-            <input type="date" id="start-date" name="start-date">
-            <input type="time" id="start-time" name="start-time">
-            <span>〜</span>
-            <input type="date" id="end-date" name="end-date">
-            <input type="time" id="end-time" name="end-time">
-            <button type="button" class="delete-btn"></button>
-        </div>
-        <button type="button" id="add-button"></button>
-        <div class="button-container">
-            <input type="submit" class="submit-button" value="登録">
-        </div>
+        <button type="submit" class="btn btn-primary">更新する</button>
     </form>
-</div>
 @endsection

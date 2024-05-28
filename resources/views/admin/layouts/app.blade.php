@@ -10,7 +10,7 @@
     <header>
         <div class="header_1">
             <a href="{{ route('curriculum_list') }}">授業管理</a>
-            <a href="{{ route('curriculum_edit') }}">お知らせ管理</a>
+            <a href="{{ route('article_edit') }}">お知らせ管理</a>
             <a href="{{ route('banner_edit') }}">バナー管理</a>
         </div>
         <div class="header_2">
@@ -18,7 +18,8 @@
         </div>
     </header>
         <a href='javascript:history.back()' class="back" >←戻る</a>
-@yield('content')
+
+        @yield('content')
     <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>
